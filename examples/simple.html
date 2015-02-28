@@ -1,0 +1,18 @@
+<html ng-app="myApp">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="../src/zingchart-angularjs.js"></script>
+        <script src="http://cdn.zingchart.com/zingchart.min.js"></script>
+        <script>zingchart.MODULESDIR="http://cdn.zingchart.com/modules/";</script>
+        <script>
+            var app = angular.module('myApp', ['zingchart-angularjs']);
+            app.controller('MainController', function($scope, $interval, $compile){
+                $scope.zingValues = [[3,2,3,3,9] , [1,2,3,4,5]];
+            });
+        </script>
+    </head>
+    <body ng-controller="MainController">
+         <zingchart id="chart-1" zc-values="zingValues" ></zingchart>
+    </body>
+
+</html>

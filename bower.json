@@ -1,0 +1,18 @@
+{
+  "name": "ZingChart-AngularJS",
+  "version": "0.0.1",
+  "description": "An AngularJS wrapper for ZingChart",
+  "main": "src/zingchart-angularjs.js",
+  "keywords": [
+    "zingchart",
+    "angularjs",
+    "charts"
+  ],
+  "authors": [
+    "ZingChart"
+  ],
+  "homepage": "www.zingchart.com",
+  "dependencies": {
+    "zingchart": "latest"
+  }
+}

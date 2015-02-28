@@ -1,0 +1,17 @@
+{
+  "name": "ZingChart-AngularJS",
+  "version": "0.0.1",
+  "description": "ZingChart Angular Directive",
+  "main": "src/zingchart-angularjs.js",
+  "author": "ZingChart",
+  "homepage": "www.zingchart.com",
+  "devDependencies": {
+    "angular-mocks": "^1.3.14",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-chrome-launcher": "^0.1.7",
+    "jquery": "^2.1.3"
+  },
+  "dependencies": {
+    "angular": "^1.3.14"
+  }
+}
