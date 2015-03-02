@@ -231,7 +231,6 @@ describe('ZingChart Directive', function(){
         var output = zingchart.exec('chart-6', 'getdata');
         var expected = {
             "graphset": [{
-                "type": "line",
                 "series": [{
                     "line-color": "#33d911",
                     "marker": {
