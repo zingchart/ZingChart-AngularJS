@@ -55,7 +55,8 @@ The directive takes care of the work so you don't have to create this object
 #####_zc-json_ [object] ```(optional)```
 ```default : null```
 
-A ZingChart json object. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. More information : http://www.zingchart.com/docs/json-attributes-syntax/
+A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive watches performs a deep-watch on the object for any changes, and stringifys the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
+
 ```js
 //Example http://jsfiddle.net/mschultz/tne7uuq0/
 $scope.json = {
