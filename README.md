@@ -1,5 +1,5 @@
 #ZingChart-AngularJS
-[![Code Climate](https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg)](https://codeclimate.com/github/zingchart/ZingChart-AngularJS)[![Build Status](https://travis-ci.org/zingchart/ZingChart-AngularJS.svg)](https://travis-ci.org/zingchart/ZingChart-AngularJS)
+[![Code Climate](https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg)](https://codeclimate.com/github/zingchart/ZingChart-AngularJS) [![Build Status](https://travis-ci.org/zingchart/ZingChart-AngularJS.svg)](https://travis-ci.org/zingchart/ZingChart-AngularJS)
 ---
 An AngularJS directive for ZingChart
 ### Install
@@ -52,34 +52,34 @@ data:{
 ```
 The directive takes care of the work so you don't have to create this object
 
-#####_zc-json [object] ```(optional)```
+#####_zc-json_ [object] ```(optional)```
 ```default : null```
 
 A ZingChart json object. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. More information : http://www.zingchart.com/docs/json-attributes-syntax/
 ```js
-//Example
+//Example http://jsfiddle.net/mschultz/tne7uuq0/
 $scope.json = {
-  "series":[
+  series:[
         {
-            "line-color":"#900000",
-            "marker":{
-                "background-color":"#dc3737",
-                "border-width":1,
-                "shadow":0,
-                "border-color":"#f56b6b"
+            lineColor:"#900000",
+            marker:{
+                backgroundColor:"#dc3737",
+                borderWidth:1,
+                shadow:0,
+                borderColor:"#f56b6b"
             }
         },
         {
-            "line-color":"#efe634",
-            "marker":{
-                "background-color":"#fff41f",
-                "border-width":1,
-                "shadow":0,
-                "border-color":"#fdffc0"
+            lineColor:"#efe634",
+            marker:{
+                backgroundColor:"#fff41f",
+                borderWidth:1,
+                shadow:0,
+                borderColor:"#fdffc0"
             }
         },
     ]
-}
+};
 ```
 Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override and "values" inside of your zc-data object
 
