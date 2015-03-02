@@ -64,9 +64,8 @@
                 };
 
                 //Add render object.
-                if($attrs.zcRender){
-                    //mergeObject(JSON.parse($attrs.zcRender), _json);
-                    mergeObject($attrs.zcRender, _json);
+                if($scope.zcRender){
+                    mergeObject($scope.zcRender, _json);
                 }
                 //Add other properties
                 _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
