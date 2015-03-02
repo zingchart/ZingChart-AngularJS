@@ -82,7 +82,7 @@
 
                 //Add Values
                 if($scope.zcValues){
-                    if(typeof _json.data.series == 'undefined'){
+                    if(typeof _json.data.series === 'undefined'){
                         _json.data.series = [];
                     }
                     //Single Series
@@ -91,7 +91,7 @@
                             _json.data.series[0].values = $scope.zcValues;
                         }
                         else{
-                            _json.data.series.push({'values' : $scope.zcValues})
+                            _json.data.series.push({'values' : $scope.zcValues});
                         }
                     }
                     //Multi Series
@@ -119,7 +119,9 @@
     */
     function mergeObject(fromObj, intoObj){
         for(var property in fromObj){
-            intoObj[property] =fromObj[property];
+            if (fromObj.hasOwnProperty(property)) {
+                intoObj[property] = fromObj[property];
+            }
         }
     }
 
@@ -129,12 +131,12 @@
     *   @returns {boolean} - true if the array is multidimensional, false otherwise
     */
     function isMultiArray(_array){
-        if(typeof _array[0] == "string" || typeof _array[0] == "number"){
+        if(typeof _array[0] === "string" || typeof _array[0] === "number"){
             return false;
         }
         else{
             return true;
         }
-    };
+    }
 
 })();
