@@ -72,7 +72,7 @@ $scope.myData2 = [[45,43,26],[0,1,5,3]];
 ###_zc-json_ [object] ```(optional)```
 ```default : null```
 
-A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive watches performs a deep-watch on the object for any changes, and stringifys the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
+A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive performs a deep-watch on the object for any changes, and stringifys the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
 
 #####Example:
 http://jsfiddle.net/mschultz/tne7uuq0/
@@ -105,7 +105,7 @@ $scope.myObj = {
 //.html
 <zingchart id="chart-1" zc-values="myValues" zc-json="myObj"></zingchart>
 ```
-Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override and "values" inside of your zc-data object
+Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override the "values" inside of your zc-data object
 
 ---
 
