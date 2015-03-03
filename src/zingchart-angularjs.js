@@ -67,11 +67,6 @@
                 if($scope.zcRender){
                     mergeObject($scope.zcRender, _json);
                 }
-                //Add other properties
-                _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
-                _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
-                _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
-                _json.id = $attrs.id;
 
 
                 //Add JSON object
@@ -105,6 +100,13 @@
                         }
                     }
                 }
+
+                //Add other properties
+                _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
+                _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
+                _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
+                _json.id = $attrs.id;
+                
                 zingchart.render(_json);
             }
         };

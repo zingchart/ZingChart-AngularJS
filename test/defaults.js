@@ -109,13 +109,19 @@ describe('ZingChart Directive', function(){
             _$scope.myValues7 = [[3,2,3,3,9] , [1,2,3,4,5]];
             $('<zingchart id="chart-7" zc-values="myValues7" zc-type="bar"></zingchart>').appendTo("#container");
 
+            //Case 9
+            _$scope.myValues8 = [3,2,3,3,9];
+            _$scope.myJson8 = {
+                    "type": "bar"
+            };
+            $('<zingchart id="chart-8" zc-values="myValues8" zc-json="myJson8" zc-type="line"></zingchart>').appendTo("#container");
 
 
             var $element = _$compile(document.getElementById('container'))(_$scope);
 
             zingchart.complete=function(p){
                 completed++;
-                if(completed == 7){
+                if(completed == 8){
                     done();
                 }
             }
@@ -255,7 +261,7 @@ describe('ZingChart Directive', function(){
         expect(JSON.stringify(output)).to.equal(JSON.stringify(expected));
     });
 
-    //Case 7
+    //Case 8
     it("should render chart-7 a 1 series bar chart", function(){
         var output = zingchart.exec('chart-7', 'getdata');
         var expected = {
@@ -265,6 +271,20 @@ describe('ZingChart Directive', function(){
                     "values": [3, 2, 3, 3, 9]
                 }, {
                     "values": [1, 2, 3, 4, 5]
+                }]
+            }]
+        };
+        expect(JSON.stringify(output)).to.equal(JSON.stringify(expected));
+    });
+
+    //Case 9
+    it("should render chart-8; a line chart with a json that specifies bar, but is overwritten", function(){
+        var output = zingchart.exec('chart-8', 'getdata');
+        var expected = {
+            "graphset":[{
+                "type":"line",
+                "series":[{
+                    "values":[3,2,3,3,9]
                 }]
             }]
         };
