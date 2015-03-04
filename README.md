@@ -8,7 +8,7 @@ bower install zingchart-angularjs
 ```
 
 Inject into your app...
-```
+```js
 var app = angular.module('myApp', ['zingchart-angularjs']);
 ```
 
@@ -31,7 +31,7 @@ The ZingChart Component takes the following attributes:
 ###_zc-id_ [string] ```(required)```
 The id for the DOM element for ZingChart to attach to.
 #####Example:
-```
+```html
 <zingchart id="chart-1"></zingchart>
 ```
 
@@ -56,7 +56,7 @@ data:{
 The directive takes care of the work so you don't have to create this object
 
 #####Example:
-```
+```js
 //.js
 $scope.myData = [0,2,2,3,3,4];
 $scope.myData2 = [[45,43,26],[0,1,5,3]];
@@ -76,7 +76,7 @@ A ZingChart configuration object. **Must be an Angular scope variable to bind to
 
 #####Example:
 http://jsfiddle.net/mschultz/tne7uuq0/
-```
+```js
 //.js
 $scope.myValues = [[0,2,3,4],[9,6,4,3]];
 $scope.myObj = {
@@ -118,7 +118,7 @@ A ZingChart render object. This is the same object you would use to configure a 
 Note: This object will not be watched inside the directive. It is a one-time setup. While you can insert your data values into the render object directly, it is encouraged to use the zc-values attribute to enable dynamic updating.
 
 #####Example:
-```
+```js
 //.js
 $scope.myValues = [0,1,2];
 $scope.myRender = {
@@ -140,7 +140,7 @@ $scope.myRender = {
 
 Will override the height inside of a zc-render object if defined.
 #####Example:
-```
+```html
 //.html
 <zingchart id="chart-1" zc-height="500"></zingchart>
 ```
@@ -153,7 +153,7 @@ Will override the height inside of a zc-render object if defined.
 
 Will override the width inside of a zc-render object if defined.
 #####Example:
-```
+```html
 //.html
 <zingchart id="chart-1" zc-width="500"></zingchart>
 ```
@@ -166,7 +166,7 @@ Will override the width inside of a zc-render object if defined.
 
 Will override the render type inside of a zc-render and zc-data object if defined.
 #####Example:
-```
+```html
 //.html
 <zingchart id="chart-1" zc-type="bar"/zingchart>
 ```
