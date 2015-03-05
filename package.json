@@ -1,5 +1,5 @@
 {
-  "name": "ZingChart-AngularJS",
+  "name": "zingchart-angularjs",
   "version": "1.0.0",
   "description": "A ZingChart AngularJS directive",
   "main": "src/zingchart-angularjs.js",
