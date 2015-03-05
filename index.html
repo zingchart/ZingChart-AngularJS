@@ -55,6 +55,14 @@
                         }
                     ]
                 };
+                $scope.features = {
+                    title : true,
+                    subtitle : true,
+                    legend : true,
+                    scaleX : true,
+                    scaleY : true
+                };
+
                 $scope.$watch('json', function(){
                     document.getElementById('output').innerHTML = JSON.stringify($scope.json, null, "  ");
                 },true);
@@ -73,14 +81,6 @@
                         delete $scope.json[type];
                     }
                 }
-
-                $scope.features = {
-                    title : true,
-                    subtitle : true,
-                    legend : true,
-                    scaleX : true,
-                    scaleY : true
-                };
 
                 $interval(function(){
                     if($scope.feed){
@@ -148,9 +148,7 @@
                                     </tr>
                                 </table>
                             </section>
-
                         </div>
-
                         <div  id="controls-col-2">
                             <h2>JSON</h2>
                             <ul>
@@ -162,7 +160,6 @@
                             </ul>
                         </div>
                     </section>
-
                 </section>
                 <section id="col-2">
                     <pre id="output"></pre>
