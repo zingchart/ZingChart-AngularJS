@@ -1,0 +1,74 @@
+$color-primary-dark : #0097A7;
+$color-primary : #00BCD4;
+$color-primary-light: #B2EBF2;
+$color-icons : #FFFFFF;
+$color-accent-1 : #FFC107;
+$color-accent-2: #FF5252;
+$color-text-light : #FFFFFF;
+$color-text-dark : #212121;
+$color-text-dark-secondary : #727272;
+$color-divider : #B6B6B6;
+
+body {
+    font-family:"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight :300;
+    color : $color-text-dark;
+}
+
+textarea{
+    resize:vertical;
+}
+
+input[type=text]{
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+}
+
+////////////////////////
+// Classes
+////////////////////////
+
+.subtext {
+    color: $color-text-dark-secondary;
+}
+.material-button{
+    padding: 10px;
+    text-align:center;
+    margin: 10px;
+    cursor: pointer;
+    color:white;
+    @include user-select(none);
+
+    @include transition(0.3s);
+
+    &.round{
+        border-radius:5px;
+    }
+    &.yellow{
+        background-color: #f2c55a;
+        &:hover{
+            background-color: #ffc549;
+        }
+    }
+    &.red{
+        background-color: #FF5252;
+        &:hover{
+            background-color: #ff0000;
+        }
+    }
+    &.green{
+        background-color: #4CAF50;
+        color:white;
+        &:hover{
+            background-color: #5acd56;
+        }
+    }
+    &.blue{
+        background-color: #03A9F4;
+        color:white;
+        &:hover{
+            background-color: #35c6ff;
+        }
+    }
+}

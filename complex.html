@@ -1,0 +1,82 @@
+<html ng-app="myApp">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="../src/zingchart-angularjs.js"></script>
+        <script src="http://cdn.zingchart.com/zingchart.min.js"></script>
+        <script>zingchart.MODULESDIR="http://cdn.zingchart.com/modules/";</script>
+        <script>
+            var app = angular.module('myApp', ['zingchart-angularjs']);
+            app.controller('MainController', function($scope, $interval, $compile){
+                var _datasets = [
+                    {
+                            "series":[
+                                {
+                                    "line-color":"#007790",
+                                    "marker":{
+                                        "background-color":"#007790",
+                                        "border-width":1,
+                                        "shadow":0,
+                                        "border-color":"#69dbf1"
+                                    }
+                                },
+                                {
+                                    "line-color":"#009872",
+                                    "marker":{
+                                        "background-color":"#009872",
+                                        "border-width":1,
+                                        "shadow":0,
+                                        "border-color":"#69f2d0"
+                                    }
+                                },
+                            ]
+                    },
+                    {
+                        "series":[
+                            {
+                                "line-color":"#900000",
+                                "marker":{
+                                    "background-color":"#dc3737",
+                                    "border-width":1,
+                                    "shadow":0,
+                                    "border-color":"#f56b6b"
+                                }
+                            },
+                            {
+                                "line-color":"#efe634",
+                                "marker":{
+                                    "background-color":"#fff41f",
+                                    "border-width":1,
+                                    "shadow":0,
+                                    "border-color":"#fdffc0"
+                                }
+                            },
+                        ]
+                    }
+                ];
+
+                var _datasetTracker = 0;
+                $scope.zingValues = [[3,2,3,3,9] , [1,2,3,4,5]];
+                $scope.zingData = _datasets[0];
+
+                $scope.updateSeries = function(){
+                    for(var i = 0 ; i < $scope.zingValues.length; i++){
+                        $scope.zingValues[i].push( Math.floor(Math.random() * (10 - 0)) );
+                    }
+                }
+                $scope.updateData = function(){
+                    _datasetTracker = (_datasetTracker == 0 ? 1 : 0);
+                    $scope.zingData = _datasets[_datasetTracker];
+                }
+            });
+
+        </script>
+    </head>
+    <body ng-controller="MainController">
+         <zingchart id="chart-1" zc-values="zingValues" zc-json="zingData" zc-type="bar3d" zc-height="400" zc-width="600" ></zingchart>
+        <div>
+            <button ng-click="updateSeries()">Add values to the series (Change the values object)</button>
+            <button ng-click="updateData()">Change the series colors (Change the data object)</button>
+        </div>
+    </body>
+
+</html>

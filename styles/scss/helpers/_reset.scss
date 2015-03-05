@@ -1,0 +1,35 @@
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+*{
+    @include box-sizing(border-box);
+}
+
+a {
+    text-decoration:none;
+}
+a:link {
+    color: #0079E2;
+}
+a:visited {
+    color: #0079E2;
+}
+a:hover {
+    color: #4bb7ff;
+}
+a:active {
+    color: #0079E2;
+}
+form {
+    margin-bottom: 0em;
+}
