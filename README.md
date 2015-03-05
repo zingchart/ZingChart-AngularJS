@@ -1,7 +1,10 @@
 #ZingChart-AngularJS
 [![Code Climate](https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg)](https://codeclimate.com/github/zingchart/ZingChart-AngularJS) [![Build Status](https://travis-ci.org/zingchart/ZingChart-AngularJS.svg)](https://travis-ci.org/zingchart/ZingChart-AngularJS)
 ---
-An AngularJS directive for ZingChart
+An AngularJS directive for ZingChart to make your charts work dynamically with your data.
+
+####Try out our demo! http://zingchart.github.io/ZingChart-AngularJS
+
 ## Install
 ```
 bower install zingchart-angularjs
