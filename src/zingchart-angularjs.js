@@ -11,7 +11,7 @@
             },
             controller : ['$scope', '$element', '$attrs', function($scope, $element, $attrs){
 
-                $scope.$watch('zcValues', function(){
+                $scope.$watchCollection('zcValues', function(){
                     if($scope.zcValues){
                         if(isMultiArray($scope.zcValues)){
                             zingchart.exec($attrs.id, 'setseriesvalues', {
@@ -24,27 +24,40 @@
                             });
                         }
                     }
-                }, true);
+                });
 
-                $scope.$watchCollection('zcJson', function(){
+                $scope.$watch('zcJson', function(){
                     if($attrs.zcJson){
                         var _json = $scope.zcJson;
-                        _json.type = $attrs.zcType;
+                        //Inject values
                         if($scope.zcValues){
                             for(var i = 0; i < $scope.zcValues.length; i++){
-                                if(_json.series[i]){
-                                    _json.series[i].values = $scope.zcValues[i];
+                                if(_json.series){
+                                    if(_json.series[i]){
+                                        _json.series[i].values = $scope.zcValues[i];
+                                    }
+                                    else{
+                                        _json.series.push({'values' : $scope.zcValues[i]});
+                                    }
                                 }
                                 else{
-                                    _json.series.push({'values' : $scope.zcValues[i]});
+
+                                    _json.series = [{'values' : $scope.zcValues[i]}];
                                 }
                             }
+                        }
+                        //Inject type
+                        if(!_json.type){
+                            _json.type = 'line';
+                        }
+                        else{
+                            _json.type = ($attrs.zcType) ? $attrs.zcType : _json.type
                         }
                         zingchart.exec($attrs.id, 'setdata', {
                             data : _json
                         });
                     }
-                });
+                },true);
 
             }],
             link : function($scope, $element, $attrs){
@@ -67,7 +80,6 @@
                 if($scope.zcRender){
                     mergeObject($scope.zcRender, _json);
                 }
-
 
                 //Add JSON object
                 if($scope.zcJson){
@@ -106,7 +118,7 @@
                 _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
                 _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
                 _json.id = $attrs.id;
-                
+
                 zingchart.render(_json);
             }
         };
