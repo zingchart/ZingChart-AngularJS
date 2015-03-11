@@ -24,7 +24,7 @@ $scope.myValues = [5,6,3,2,3];
 
 _markup_
 ```html
-<zingchart id="chart-1 zc-values="myValues"></zingchart>
+<zingchart id="chart-1" zc-values="myValues"></zingchart>
 ```
 
 ##Options
