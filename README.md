@@ -5,7 +5,18 @@ An AngularJS directive for ZingChart to make your charts work dynamically with y
 
 #### Try out our demo! http://zingchart.github.io/ZingChart-AngularJS
 #### Full blog post @ http://www.zingchart.com/blog/2015/03/05/zingchart-angularjs/
+
+---
+
+Note: As of v1.0.1, the attribute is now exposed to the directive allowing you to bind the zingchart directive to an actual DOM element along with the `<zingchart>` element. This will allow you to utilize percentage values in the height/width render options by maintaining a DIV's inherit properties. The following are equivalent :
+
+`<div zingchart zc-values="myValues"></div>`
+
+`<zingchart zc-values="myValues"></zingchart>`
+
 ## Install
+
+
 ```
 bower install zingchart-angularjs
 ```

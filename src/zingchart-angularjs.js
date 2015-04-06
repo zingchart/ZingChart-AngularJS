@@ -3,7 +3,7 @@
     angular.module('zingchart-angularjs', [] )
     .directive('zingchart', [function(){
         return {
-            restrict : 'E',
+            restrict : 'EA',
             scope : {
                 zcValues : '=',
                 zcJson : '=',
