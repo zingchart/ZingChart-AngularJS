@@ -42,7 +42,7 @@ _markup_
 The ZingChart Component takes the following attributes:
 
 
-### _zc-id_ [string] ```(required)```
+### _id_ [string] ```(required)```
 The id for the DOM element for ZingChart to attach to.
 ##### Example:
 ```html
