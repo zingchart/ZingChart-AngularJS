@@ -8,7 +8,7 @@ An AngularJS directive for ZingChart to make your charts work dynamically with y
 
 ---
 
-Note: As of v1.0.1, the attribute is now exposed to the directive allowing you to bind the zingchart directive to an actual DOM element along with the `<zingchart>` element. This will allow you to utilize percentage values in the height/width render options by maintaining a DIV's inherit properties. The following are equivalent :
+Note: As of v1.0.1, the attribute is now exposed to the directive allowing you to bind the zingchart directive to an actual DOM element along with the `<zingchart>` element. This will allow you to utilize percentage values in the height/width render options while maintaining a DIV's inherit properties. The following are equivalent :
 
 `<div zingchart zc-values="myValues"></div>`
 
@@ -86,7 +86,7 @@ $scope.myData2 = [[45,43,26],[0,1,5,3]];
 ### _zc-json_ [object] ```(optional)```
 ```default : null```
 
-A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive performs a deep-watch on the object for any changes, and stringifys the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
+A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive performs a deep-watch on the object for any changes, and stringifies the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
 
 ##### Example:
 http://jsfiddle.net/mschultz/tne7uuq0/
