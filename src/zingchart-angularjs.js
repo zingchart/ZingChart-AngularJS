@@ -10,8 +10,15 @@
                 zcRender : '='
             },
             controller : ['$scope', '$element', '$attrs', function($scope, $element, $attrs){
-
+                var initializing = {
+                    json : true,
+                    values :true
+                };
                 $scope.$watchCollection('zcValues', function(){
+                    if(initializing.values){
+                        initializing.values = !initializing.values;
+                        return;
+                    }
                     if($scope.zcValues){
                         if(isMultiArray($scope.zcValues)){
                             zingchart.exec($attrs.id, 'setseriesvalues', {
@@ -27,6 +34,10 @@
                 });
 
                 $scope.$watch('zcJson', function(){
+                    if(initializing.json){
+                        initializing.json = !initializing.json;
+                        return;
+                    }
                     if($attrs.zcJson){
                         var _json = $scope.zcJson;
                         //Inject values
@@ -47,7 +58,7 @@
                             }
                         }
                         //Inject type
-                        if(!_json.type){
+                        if(JSON.stringify(_json).indexOf('type') === -1){
                             _json.type = 'line';
                         }
                         else{
