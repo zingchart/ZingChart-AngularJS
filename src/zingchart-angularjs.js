@@ -130,6 +130,14 @@
                 _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
                 _json.id = $attrs.id;
 
+                //Set the box-model of the container element if the height or width are defined as 100%.
+                if(_json.width === "100%" && !$element.width){
+                    $element.css('width', '100%');
+                }
+                if(_json.height === "100%" && !$element.height){
+                    $element.css('height', '100%');
+                }
+
                 zingchart.render(_json);
             }
         };
