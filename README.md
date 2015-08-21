@@ -6,38 +6,72 @@ An AngularJS directive for ZingChart to make your charts work dynamically with y
 #### Try out our demo! http://zingchart.github.io/ZingChart-AngularJS
 #### Full blog post @ http://www.zingchart.com/blog/2015/03/05/zingchart-angularjs/
 
----
+* [Install](#install)
+* [Usage](#usage)
+* [FAQ](#faq)
+* [Options](#options)
 
-Note: As of v1.0.1, the attribute is now exposed to the directive allowing you to bind the zingchart directive to an actual DOM element along with the `<zingchart>` element. This will allow you to utilize percentage values in the height/width render options while maintaining a DIV's inherit properties. The following are equivalent :
 
-`<div zingchart zc-values="myValues"></div>`
-
-`<zingchart zc-values="myValues"></zingchart>`
-
+<a id="install"></a>
 ## Install
-
-
 ```
 bower install zingchart-angularjs
 ```
 
 Inject into your app...
+
 ```js
 var app = angular.module('myApp', ['zingchart-angularjs']);
 ```
 
+<a id="usage"></a>
 ## Usage
-_javascript_
+**_javascript_**
+
 ```js
 //In an Angular Controller
 $scope.myValues = [5,6,3,2,3];
 ```
 
-_markup_
+**_markup_**
+
 ```html
 <zingchart id="chart-1" zc-values="myValues"></zingchart>
 ```
 
+or
+
+```html
+<div zingchart id="chart-1" zc-values="myValues"></dib>
+```
+
+
+<a id="faq"></a>
+##FAQ
+
+> How do I make my charts responsive?
+
+**Background**
+
+ZingChart internally attaches itself to the element that is specified in the render function, and continues to build children elements inside. In this Angular directives case, it will attach itself to either :
+
+* The `<zingchart>` if the element binding syntax is used
+* The `<div>` if the `zingchart` attribute binding syntax is used.
+
+Since the element `zingchart` is not a valid HTML element, the browser will not assign css attributes to the element where as a div has inherit properties such as `display:block`.
+
+**How to**
+
+We reccomended using the attribute binding syntax on a div to automatically inherit the `display:block` CSS attribute. You will also need to apply a value of `100%` to the zc-height and zc-width attributes.  
+
+Example : 
+
+```
+<div zingchart id="chart-1" zc-width="100%" zc-height="100%"></div>
+```
+
+
+<a id="options"></a>
 ## Options
 The ZingChart Component takes the following attributes:
 
@@ -185,4 +219,4 @@ Will override the render type inside of a zc-render and zc-data object if define
 <zingchart id="chart-1" zc-type="bar"/zingchart>
 ```
 
----
+
