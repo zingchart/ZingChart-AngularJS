@@ -3,15 +3,22 @@
     angular.module('zingchart-angularjs', [] )
     .directive('zingchart', [function(){
         return {
-            restrict : 'E',
+            restrict : 'EA',
             scope : {
                 zcValues : '=',
                 zcJson : '=',
                 zcRender : '='
             },
             controller : ['$scope', '$element', '$attrs', function($scope, $element, $attrs){
-
+                var initializing = {
+                    json : true,
+                    values :true
+                };
                 $scope.$watchCollection('zcValues', function(){
+                    if(initializing.values){
+                        initializing.values = !initializing.values;
+                        return;
+                    }
                     if($scope.zcValues){
                         if(isMultiArray($scope.zcValues)){
                             zingchart.exec($attrs.id, 'setseriesvalues', {
@@ -27,6 +34,10 @@
                 });
 
                 $scope.$watch('zcJson', function(){
+                    if(initializing.json){
+                        initializing.json = !initializing.json;
+                        return;
+                    }
                     if($attrs.zcJson){
                         var _json = $scope.zcJson;
                         //Inject values
@@ -47,7 +58,7 @@
                             }
                         }
                         //Inject type
-                        if(!_json.type){
+                        if(JSON.stringify(_json).indexOf('type') === -1){
                             _json.type = 'line';
                         }
                         else{
@@ -118,6 +129,14 @@
                 _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
                 _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
                 _json.id = $attrs.id;
+
+                //Set the box-model of the container element if the height or width are defined as 100%.
+                if(_json.width === "100%" && !$element.width){
+                    $element.css('width', '100%');
+                }
+                if(_json.height === "100%" && !$element.height){
+                    $element.css('height', '100%');
+                }
 
                 zingchart.render(_json);
             }

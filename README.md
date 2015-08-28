@@ -1,36 +1,84 @@
-#ZingChart-AngularJS
+# ZingChart-AngularJS
 [![Code Climate](https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg)](https://codeclimate.com/github/zingchart/ZingChart-AngularJS) [![Build Status](https://travis-ci.org/zingchart/ZingChart-AngularJS.svg)](https://travis-ci.org/zingchart/ZingChart-AngularJS)
 ---
-An AngularJS directive for ZingChart
+An AngularJS directive for ZingChart to make your charts work dynamically with your data.
+
+#### Try out our demo! http://zingchart.github.io/ZingChart-AngularJS
+#### Full blog post @ http://www.zingchart.com/blog/2015/03/05/zingchart-angularjs/
+
+* [Install](#install)
+* [Usage](#usage)
+* [FAQ](#faq)
+* [Options](#options)
+
+
+<a id="install"></a>
 ## Install
 ```
 bower install zingchart-angularjs
 ```
 
 Inject into your app...
+
 ```js
 var app = angular.module('myApp', ['zingchart-angularjs']);
 ```
 
-##Usage
-_javascript_
+<a id="usage"></a>
+## Usage
+**_javascript_**
+
 ```js
 //In an Angular Controller
 $scope.myValues = [5,6,3,2,3];
 ```
 
-_markup_
+**_markup_**
+
 ```html
-<zingchart id="chart-1 zc-values="myValues"></zingchart>
+<zingchart id="chart-1" zc-values="myValues"></zingchart>
 ```
 
-##Options
+or
+
+```html
+<div zingchart id="chart-1" zc-values="myValues"></dib>
+```
+
+
+<a id="faq"></a>
+##FAQ
+
+> How do I make my charts responsive?
+
+**Background**
+
+ZingChart internally attaches itself to the element that is specified in the render function, and continues to build children elements inside. In this Angular directives case, it will attach itself to either :
+
+* The `<zingchart>` if the element binding syntax is used
+* The `<div>` if the `zingchart` attribute binding syntax is used.
+
+Since the element `zingchart` is not a valid HTML element, the browser will not assign css attributes to the element where as a div has inherit properties such as `display:block`.
+
+**How to**
+
+We reccomended using the attribute binding syntax on a div to automatically inherit the `display:block` CSS attribute. You will also need to apply a value of `100%` to the zc-height and zc-width attributes.  
+
+Example : 
+
+```
+<div zingchart id="chart-1" zc-width="100%" zc-height="100%"></div>
+```
+
+
+<a id="options"></a>
+## Options
 The ZingChart Component takes the following attributes:
 
 
-###_zc-id_ [string] ```(required)```
+### _id_ [string] ```(required)```
 The id for the DOM element for ZingChart to attach to.
-#####Example:
+##### Example:
 ```html
 <zingchart id="chart-1"></zingchart>
 ```
@@ -38,7 +86,7 @@ The id for the DOM element for ZingChart to attach to.
 ---
 
 
-###_zc-values_ [array] ```(optional)```
+### _zc-values_ [array] ```(optional)```
 ```default : null```
 
 Either a single-dimensional or multi-dimensional array containing the values to be charted. **Must be an Angular scope variable to bind to the directive** Overrides the series values in the zc-render and zc-data objects.
@@ -55,7 +103,7 @@ data:{
 ```
 The directive takes care of the work so you don't have to create this object
 
-#####Example:
+##### Example:
 ```js
 //.js
 $scope.myData = [0,2,2,3,3,4];
@@ -69,12 +117,12 @@ $scope.myData2 = [[45,43,26],[0,1,5,3]];
 ---
 
 
-###_zc-json_ [object] ```(optional)```
+### _zc-json_ [object] ```(optional)```
 ```default : null```
 
-A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive performs a deep-watch on the object for any changes, and stringifys the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
+A ZingChart configuration object. **Must be an Angular scope variable to bind to the directive**. This is the same object you would use to configure a chart using zingchart.render.data. It is a pseudo-parent object of zc-values. The directive performs a deep-watch on the object for any changes, and stringifies the result as JSON to be rendered to ZingChart.  More information : http://www.zingchart.com/docs/json-attributes-syntax/
 
-#####Example:
+##### Example:
 http://jsfiddle.net/mschultz/tne7uuq0/
 ```js
 //.js
@@ -110,14 +158,14 @@ Note: You can add series values into this object like you normally would while u
 ---
 
 
-###_zc-render_ [object] ```(optional)```
+### _zc-render_ [object] ```(optional)```
 ```default : null```
 
 A ZingChart render object. This is the same object you would use to configure a chart using zingchart.render. You can change the render type, add events, and change other zingchart properties in here. Acts like a pseudo-parent of zc-values and zc-data. zc-render's properties will be overwritten if zc-values and zc-data are defined. More information : http://www.zingchart.com/docs/reference/zingchart-object/#zingchart__render
 
 Note: This object will not be watched inside the directive. It is a one-time setup. While you can insert your data values into the render object directly, it is encouraged to use the zc-values attribute to enable dynamic updating.
 
-#####Example:
+##### Example:
 ```js
 //.js
 $scope.myValues = [0,1,2];
@@ -135,7 +183,7 @@ $scope.myRender = {
 ---
 
 
-###_zc-height_ [number] ```(optional)```
+### _zc-height_ [number] ```(optional)```
 ```default : 400```
 
 Will override the height inside of a zc-render object if defined.
@@ -148,11 +196,11 @@ Will override the height inside of a zc-render object if defined.
 ---
 
 
-###_zc-width_ [number] ```(optional)```
+### _zc-width_ [number] ```(optional)```
 ```default : 600```
 
 Will override the width inside of a zc-render object if defined.
-#####Example:
+##### Example:
 ```html
 //.html
 <zingchart id="chart-1" zc-width="500"></zingchart>
@@ -161,14 +209,14 @@ Will override the width inside of a zc-render object if defined.
 ---
 
 
-###_zc-type_ [string] ```(optional)```
+### _zc-type_ [string] ```(optional)```
 ```default : line```
 
 Will override the render type inside of a zc-render and zc-data object if defined.
-#####Example:
+##### Example:
 ```html
 //.html
 <zingchart id="chart-1" zc-type="bar"/zingchart>
 ```
 
----
+
