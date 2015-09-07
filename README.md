@@ -42,7 +42,7 @@ $scope.myValues = [5,6,3,2,3];
 or
 
 ```html
-<div zingchart id="chart-1" zc-values="myValues"></dib>
+<div zingchart id="chart-1" zc-values="myValues"></div>
 ```
 
 
