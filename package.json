@@ -1,8 +1,8 @@
 {
   "name": "zingchart-angularjs",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "A ZingChart AngularJS directive",
-  "main": "src/zingchart-angularjs.js",
+  "main": "index.js",
   "author": "ZingChart",
   "homepage": "www.zingchart.com",
   "devDependencies": {
