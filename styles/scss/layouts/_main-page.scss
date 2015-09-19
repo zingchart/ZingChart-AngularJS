@@ -1,0 +1,106 @@
+*{
+    font-size:0.98em;
+}
+ul{
+    list-style-type: none;
+    margin:0px;
+    padding:0px;
+    li{
+        margin: 10px 0px;
+        input{
+            margin: 2px 0px;
+        }
+    }
+}
+h2{
+    margin:5px 0px;
+}
+input:disabled{
+    background-color:#d4d4d4;
+}
+
+#main-container{
+    @include display(flex);
+    @include align-items(center);
+    @extend %flexbox-vertical;
+    header {
+        @include align-items(center);
+        @extend %flexbox-vertical;
+        min-height: 120px;
+        max-height: 120px;
+        margin-bottom: 15px;
+        #nav{
+            margin-top:8px;
+        }
+        img{
+            min-height:90px;
+            max-height:90px;
+            max-width: 464px;
+        }
+    }
+}
+
+#content-container{
+    @extend %flexbox-center;
+    @extend %flexbox-horizontal;
+    max-width:1000px;
+    background-color:white;
+    padding:10px 10px 0px 10px;
+    border: 1px solid #dadada;
+    box-shadow: 5px 5px 5px 0px rgba(212,212,212,0.2);
+    flex-wrap:wrap;
+}
+#chart-container{
+    min-height: 320px;
+}
+
+#col-1{
+    @extend %flexbox-vertical;
+    margin-right:10px;
+}
+#controls{
+    @extend %flexbox-horizontal;
+    @include display(flex);
+    padding:10px 10px 0px 10px;
+    margin-top: 10px;
+
+    #controls-col-1{
+        @extend %flexbox-vertical;
+        flex-grow: 2;
+        padding:10px 10px 0px 10px;
+        min-width: 230px;
+    }
+    #controls-col-2{
+        flex-grow: 2;
+        padding:10px 10px 0px 10px;
+        min-width: 230px;
+        >section{
+            padding: 5px 0px;
+            border-bottom : 0px solid #d3d3d3;
+            font-size:0.9em;
+        }
+        >section:first-child{
+            padding: 0px;
+        }
+    }
+}
+#controls-colors{
+    @extend %flexbox-vertical;
+    >div{
+        margin:5px;
+    }
+}
+#col-2{
+    flex-grow: 2;
+    max-width:600px;
+    #output{
+        border: 1px solid #838383;
+        background-color:#eee;
+        height: 710px;
+        min-width: 300px;
+        margin:0px;
+        padding: 5px;
+        font-size: 0.9em;
+        overflow:scroll;
+    }
+}

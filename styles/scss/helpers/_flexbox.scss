@@ -1,0 +1,29 @@
+////////////////////////
+// Flexbox-layouts
+////////////////////////
+%flexbox-horizontal{
+    @include flex-direction(row);
+    @include display(flex);
+    @include box-sizing(border-box);
+}
+
+%flexbox-vertical{
+    @include flex-direction(column);
+    @include display(flex);
+    @include box-sizing(border-box);
+}
+%flexbox-center{
+    @include justify-content(center);
+}
+%flexbox-end{
+    @include justify-content(end);
+}
+
+%flexbox-fullbleed{
+    margin:0;
+    height:100vh;
+}
+
+%flexbox-flex{
+    @include flex(1);
+}
