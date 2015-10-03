@@ -1,0 +1,211 @@
+<html ng-app="myApp">
+    <head>
+        <link rel="stylesheet" type="text/css" href="bower_components/spectrum/spectrum.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/main.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/spectrum/spectrum.js"></script>
+        <script src="src/zingchart-angularjs.js"></script>
+        <script src="bower_components/zingchart/client/zingchart.min.js"></script>
+        <script>
+            var app = angular.module('myApp', ['zingchart-angularjs']);
+
+            app.controller('MainController', function($scope, $interval, $compile){
+
+                $scope.values = [[3,2,3,3,9] , [1,2,3,4,5]];
+                $scope.json = {
+                    type : "line",
+                    title : {
+                        text : "My AngularJS Chart"
+                    },
+                    subtitle : {
+                        text : "My subtitle"
+                    },
+                    scaleX : {
+                        label : {
+                            text : "My Scale-X label"
+                        }
+                    },
+                    scaleY : {
+                        label : {
+                            text : "My Scale-Y label"
+                        }
+                    },
+                    legend : {},
+                    series:[
+                        {
+                            lineColor:"#F44336",
+                            backgroundColor:"#F44336",
+                            borderColor : "#F44336",
+                            marker:{
+                                borderWidth:0,
+                                backgroundColor:"#F44336",
+                            }
+                        },
+                        {
+                            lineColor:"#2196F3",
+                            backgroundColor:"#2196F3",
+                            borderColor:"#2196F3",
+
+                            marker:{
+                                borderWidth:0,
+                                backgroundColor:"#2196F3",
+                            }
+                        }
+                    ]
+                };
+                $scope.features = {
+                    title : true,
+                    subtitle : true,
+                    legend : true,
+                    scaleX : true,
+                    scaleY : true
+                };
+
+                $scope.$watch('json', function(){
+                    document.getElementById('output').innerHTML = JSON.stringify($scope.json, null, "  ");
+                },true);
+
+                $scope.updateSeries = function(){
+                    for(var i = 0 ; i < $scope.values.length; i++){
+                        $scope.values[i].push( Math.floor(Math.random() * (10 - 0)) );
+                    }
+                }
+
+                $scope.updateJson = function(type){
+                    if($scope.features[type]){
+                        $scope.json[type] = {}
+                    }
+                    else{
+                        delete $scope.json[type];
+                    }
+                }
+
+                $interval(function(){
+                    if($scope.feed){
+                        $scope.updateSeries();
+                    }
+                },1000)
+            });
+
+        </script>
+    </head>
+    <body ng-controller="MainController">
+        <section id="main-container">
+            <header>
+                <img src="assets/logo.png" >
+                <div>
+                    A demo of the ZingChart-AngularJS Directive
+                </div>
+                <div id="nav">
+                    <a href="https://github.com/zingchart/ZingChart-AngularJS"> Github</a> | <a href="http://zingchart.com"> ZingChart</a>
+                </div>
+            </header>
+            <div id="content-container">
+                <section id="col-1">
+                    <section id="chart-container">
+                      <zingchart id="chart-1" zc-values="values"  zc-json="json" zc-height="350" zc-width="600" ></zingchart>
+                    </section>
+                    <section id="controls">
+                        <div id="controls-col-1">
+                            <section>
+                                <h2>Values</h2>
+                                <div>Auto update (1s intervals) : <input type="checkbox" ng-model="feed"></div>
+                                <div class="material-button green" style="margin-left:0px;"ng-click="updateSeries()">Add values to the series</div>
+                            </section>
+                            <section>
+                                <h2>Colors</h2>
+                                <section id="controls-colors">
+                                    <div>
+                                        <label>Series 1 : </label>
+                                        <input type="text" id="series-1">
+                                    </div>
+                                    <div>
+                                        <label>Series 2 : </label>
+                                        <input type="text" id="series-2">
+                                    </div>
+                                </section>
+                            </section>
+                            <section>
+                                <h2>Type</h2>
+                                <table>
+                                    <tr>
+                                        <td><input id="type-line"type="radio" ng-model="json.type" value="line" ><label for="type-line">Line</label></td>
+                                        <td><input id="type-line3d"type="radio" ng-model="json.type" value="line3d"><label for="type-line3d">Line 3D</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="type-area" type="radio" ng-model="json.type" value="area"><label for="type-area">Area</label></td>
+                                        <td><input id="type-area3d" type="radio" ng-model="json.type" value="area3d"><label for="type-area3d">Area 3D</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="type-bar" type="radio" ng-model="json.type" value="bar"><label for="type-bar">Bar</label></td>
+                                        <td><input id="type-bar3d" type="radio" ng-model="json.type" value="bar3d"><label for="type-bar3d">Bar 3D</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="type-scatter" type="radio" ng-model="json.type" value="scatter"><label for="type-scatter">Scatter</label></td>
+                                        <td><input id="type-radar" type="radio" ng-model="json.type" value="radar"><label for="type-radar">Radar</label></td>
+                                    </tr>
+                                </table>
+                            </section>
+                        </div>
+                        <div  id="controls-col-2">
+                            <h2>JSON</h2>
+                            <ul>
+                                <li><input type="checkbox" ng-model="features.legend" ng-click="updateJson('legend')"> Legend</li>
+                                <li><input type="checkbox" ng-model="features.title" ng-click="updateJson('title')"> Title <input type="text" ng-model="json.title.text" placeholder="Title Text" ng-disabled="!features.title"></li>
+                                <li><input type="checkbox" ng-model="features.subtitle" ng-click="updateJson('subtitle')"> Subtitle <input type="text" ng-model="json.subtitle.text" placeholder="Subtitle Text"  ng-disabled="!features.subtitle"></li>
+                                <li><input type="checkbox" ng-model="features.scaleX" ng-click="updateJson('scaleX')"> Scale-X Label <input type="text" ng-model="json.scaleX.label.text" placeholder="Scale X Text"  ng-disabled="!features.scaleX"></li>
+                                <li><input type="checkbox" ng-model="features.scaleY" ng-click="updateJson('scaleY')"> Scale-Y Label <input type="text" ng-model="json.scaleY.label.text" placeholder="Scale Y Text"  ng-disabled="!features.scaleY"></li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+                <section id="col-2">
+                    <pre id="output"></pre>
+                </section>
+            </div>
+           </div>
+        </section>
+
+        <script>
+        $("#series-1").spectrum({
+            showPaletteOnly: true,
+            showPalette:true,
+            hideAfterPaletteSelect : true,
+            color: '#F44336',
+            palette: [
+                ['#F44336', '#FF4081', '#9C27B0','#2196F3', '#75d8ff'],
+                ['#00BCD4', '#4CAF50', '#FF5722', '#FFEB3B', '#9E9E9E']
+            ],
+            change : function(color){
+                var $scope = angular.element(document.getElementById('chart-1')).scope();
+                $scope.json.series[0].lineColor = color.toHexString();
+                $scope.json.series[0].backgroundColor = color.toHexString();
+                $scope.json.series[0].borderColor = color.toHexString();
+                $scope.json.series[0].marker.backgroundColor = color.toHexString();
+                $scope.$apply();
+            }
+        });
+        $("#series-2").spectrum({
+            showPaletteOnly: true,
+            showPalette:true,
+            hideAfterPaletteSelect : true,
+            color: '#2196F3',
+            palette: [
+                ['#F44336', '#FF4081', '#9C27B0','#2196F3', '#75d8ff'],
+                ['#00BCD4', '#4CAF50', '#FF5722', '#FFEB3B', '#9E9E9E']
+            ],
+            change : function(color){
+                var $scope = angular.element(document.getElementById('chart-1')).scope();
+                $scope.json.series[1].lineColor = color.toHexString();
+                $scope.json.series[1].backgroundColor = color.toHexString();
+                $scope.json.series[1].borderColor = color.toHexString();
+                $scope.json.series[1].marker.backgroundColor = color.toHexString();
+                $scope.$apply();
+            }
+        });
+        </script>
+    </body>
+
+</html>

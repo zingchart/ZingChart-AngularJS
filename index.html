@@ -1,211 +1,239 @@
 <html ng-app="myApp">
     <head>
-        <link rel="stylesheet" type="text/css" href="bower_components/spectrum/spectrum.css"/>
-        <link rel="stylesheet" type="text/css" href="styles/main.css"/>
-
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/spectrum/spectrum.js"></script>
         <script src="src/zingchart-angularjs.js"></script>
         <script src="bower_components/zingchart/client/zingchart.min.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <script>
             var app = angular.module('myApp', ['zingchart-angularjs']);
 
             app.controller('MainController', function($scope, $interval, $compile){
-
-                $scope.values = [[3,2,3,3,9] , [1,2,3,4,5]];
-                $scope.json = {
-                    type : "line",
-                    title : {
-                        text : "My AngularJS Chart"
-                    },
-                    subtitle : {
-                        text : "My subtitle"
-                    },
-                    scaleX : {
-                        label : {
-                            text : "My Scale-X label"
-                        }
-                    },
-                    scaleY : {
-                        label : {
-                            text : "My Scale-Y label"
-                        }
-                    },
-                    legend : {},
-                    series:[
-                        {
-                            lineColor:"#F44336",
-                            backgroundColor:"#F44336",
-                            borderColor : "#F44336",
-                            marker:{
-                                borderWidth:0,
-                                backgroundColor:"#F44336",
-                            }
-                        },
-                        {
-                            lineColor:"#2196F3",
-                            backgroundColor:"#2196F3",
-                            borderColor:"#2196F3",
-
-                            marker:{
-                                borderWidth:0,
-                                backgroundColor:"#2196F3",
-                            }
-                        }
-                    ]
-                };
-                $scope.features = {
-                    title : true,
-                    subtitle : true,
-                    legend : true,
-                    scaleX : true,
-                    scaleY : true
-                };
-
-                $scope.$watch('json', function(){
-                    document.getElementById('output').innerHTML = JSON.stringify($scope.json, null, "  ");
-                },true);
-
-                $scope.updateSeries = function(){
-                    for(var i = 0 ; i < $scope.values.length; i++){
-                        $scope.values[i].push( Math.floor(Math.random() * (10 - 0)) );
-                    }
-                }
-
-                $scope.updateJson = function(type){
-                    if($scope.features[type]){
-                        $scope.json[type] = {}
-                    }
-                    else{
-                        delete $scope.json[type];
-                    }
-                }
-
-                $interval(function(){
-                    if($scope.feed){
-                        $scope.updateSeries();
-                    }
-                },1000)
+                $scope.someModel = "foobar";
             });
 
+            app.controller('NavController', function($scope, $interval, $compile){
+                $scope.currentTab = document.getElementById('tab-1');
+                $scope.changeTab = function(event){
+                    //Remove the styling from the current tab
+                    if($scope.currentTab){
+                        $scope.currentTab.className = "tab";
+                        var oldDescription =  $scope.currentTab.querySelector('div');
+                        oldDescription.className= "tab-description";
+                        var num = $scope.currentTab.getAttribute('data-example');
+                        var frameEl = document.getElementById('frames').querySelector('[data-example="'+num+'" ');
+                        frameEl.style.display = "none"
+                    }
+                    $scope.currentTab = event.currentTarget;
+                    event.currentTarget.className = "tab selected";
+                    var description =  event.currentTarget.querySelector('div');
+                    description.className= "tab-description selected";
+                    var num = $scope.currentTab.getAttribute('data-example');
+                    var frameEl = document.getElementById('frames').querySelector('[data-example="'+num+'" ');
+                    frameEl.style.display = "initial"
+                }
+            });
         </script>
+        <style>
+            body{
+                padding: 0px;
+                margin: 0px;
+                font-family : "Helvetica";
+            }
+            a:link {
+                color: #00BAF0;
+                text-decoration: none;
+            }
+            a:visited {
+                color: #00BAF0;
+                text-decoration: none;
+            }
+            a:hover {
+                color: #26ceff;
+                text-decoration: none;
+            }
+            a:active {
+                color: #00BAF0;
+                text-decoration: none;
+            }
+
+            *{
+                box-sizing: border-box;
+            }
+            .prettyprint {
+                padding: 10px !important;
+                margin: 0px !important;
+                border : 0px !important;
+            }
+            #main-header{
+                display : flex;
+                justify-content: center;
+                padding: 10px;
+                height: 300px;
+                _color : white;
+                _background-color : #7EA846;
+                flex-direction: column;
+            }
+            #main-header-text{
+                color : #444;
+                text-align:center;
+            }
+
+            .row {
+                height: 600px;
+                margin: 30px 0px;
+                background-color : #eee;
+                display: flex;
+                flex-direction: row;
+            }
+            .row-header{
+                padding: 20px;
+                font-size: 2em;
+                color : #444;
+            }
+
+            #row-1{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                text-align:center;
+                width: 100%;
+            }
+            .tab-description{
+                padding-top: 5px;
+                font-weight: 100;
+                max-height: 0px;
+                overflow: hidden;
+                transition-property : max-height;
+                transition-duration: 300ms;
+            }
+            .tab-description.selected{
+                max-height: 300px;
+                transition-property : max-height;
+                transition-duration: 1000ms;
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+
+            #tabs-container{
+                display : flex;
+                flex-direction: column;
+                list-style-type: none;
+                padding: 0px;
+                margin: 0px;
+                height: 100%;
+                width: 200px;
+            }
+            .tab {
+                display: flex;
+                flex-grow: 1;
+                font-size: 1.2em;
+                border-bottom: 1px solid white;
+                text-align:center;
+                flex-direction: column;
+                justify-content: center;
+                color : white;
+                background-color: #00BAF0;
+                cursor: pointer;
+                padding: 10px;
+            }
+            .tab.selected{
+                background-color: #00384A;
+                padding-top:10px;
+                transition-property : height, background-color;
+                transition-duration: 700ms;
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+            .code-block {
+                background-color : #fff;
+                height: 180px;
+            }
+            .code-block > header{
+                background-color : #00BAF0;
+                height: 30px;
+                color : white;
+                padding: 5px;
+            }
+        </style>
     </head>
-    <body ng-controller="MainController">
-        <section id="main-container">
-            <header>
-                <img src="assets/logo.png" >
-                <div>
-                    A demo of the ZingChart-AngularJS Directive
-                </div>
-                <div id="nav">
-                    <a href="https://github.com/zingchart/ZingChart-AngularJS"> Github</a> | <a href="http://zingchart.com"> ZingChart</a>
+    <body>
+        <section id="container" ng-controller="MainController">
+            <header id="main-header">
+                <div id="main-header-text">
+                    <div>
+                        <span style="font-size:5em;">ZingChart-AngularJS</span><br>
+                    </div>
+                    <div style="margin-top:5px;">
+                        <span style="font-size:1.2em">An AngularJS directive to allow ZingChart to work dynamically with data.</span><br>
+                    </div>
+                    <div style="margin-top:30px;">
+                        <iframe src="https://ghbtns.com/github-btn.html?user=zingchart&repo=zingchart-angularjs&type=star&count=true=" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
+                        <a href="https://codeclimate.com/github/zingchart/ZingChart-AngularJS"><img src="https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg"></a>
+                        <a href="https://travis-ci.org/zingchart/ZingChart-AngularJS"><img src="https://travis-ci.org/zingchart/ZingChart-AngularJS.svg"></a>
+                    </div>
                 </div>
             </header>
-            <div id="content-container">
-                <section id="col-1">
-                    <section id="chart-container">
-                      <zingchart id="chart-1" zc-values="values"  zc-json="json" zc-height="350" zc-width="600" ></zingchart>
-                    </section>
-                    <section id="controls">
-                        <div id="controls-col-1">
-                            <section>
-                                <h2>Values</h2>
-                                <div>Auto update (1s intervals) : <input type="checkbox" ng-model="feed"></div>
-                                <div class="material-button green" style="margin-left:0px;"ng-click="updateSeries()">Add values to the series</div>
-                            </section>
-                            <section>
-                                <h2>Colors</h2>
-                                <section id="controls-colors">
-                                    <div>
-                                        <label>Series 1 : </label>
-                                        <input type="text" id="series-1">
-                                    </div>
-                                    <div>
-                                        <label>Series 2 : </label>
-                                        <input type="text" id="series-2">
-                                    </div>
-                                </section>
-                            </section>
-                            <section>
-                                <h2>Type</h2>
-                                <table>
-                                    <tr>
-                                        <td><input id="type-line"type="radio" ng-model="json.type" value="line" ><label for="type-line">Line</label></td>
-                                        <td><input id="type-line3d"type="radio" ng-model="json.type" value="line3d"><label for="type-line3d">Line 3D</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input id="type-area" type="radio" ng-model="json.type" value="area"><label for="type-area">Area</label></td>
-                                        <td><input id="type-area3d" type="radio" ng-model="json.type" value="area3d"><label for="type-area3d">Area 3D</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input id="type-bar" type="radio" ng-model="json.type" value="bar"><label for="type-bar">Bar</label></td>
-                                        <td><input id="type-bar3d" type="radio" ng-model="json.type" value="bar3d"><label for="type-bar3d">Bar 3D</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input id="type-scatter" type="radio" ng-model="json.type" value="scatter"><label for="type-scatter">Scatter</label></td>
-                                        <td><input id="type-radar" type="radio" ng-model="json.type" value="radar"><label for="type-radar">Radar</label></td>
-                                    </tr>
-                                </table>
-                            </section>
+            <div class="row">
+
+                <div id="row-1">
+                    <section id="tabs-container" ng-controller="NavController">
+                        <div id="tab-1" class="tab selected" ng-click="changeTab($event)" data-example="1">
+                            <span>Basic</span>
+                            <div class="tab-description selected">
+                                <span style="font-size: 0.8em">Render charts simply by adding values as arrays</span>
+                            </div>
                         </div>
-                        <div  id="controls-col-2">
-                            <h2>JSON</h2>
-                            <ul>
-                                <li><input type="checkbox" ng-model="features.legend" ng-click="updateJson('legend')"> Legend</li>
-                                <li><input type="checkbox" ng-model="features.title" ng-click="updateJson('title')"> Title <input type="text" ng-model="json.title.text" placeholder="Title Text" ng-disabled="!features.title"></li>
-                                <li><input type="checkbox" ng-model="features.subtitle" ng-click="updateJson('subtitle')"> Subtitle <input type="text" ng-model="json.subtitle.text" placeholder="Subtitle Text"  ng-disabled="!features.subtitle"></li>
-                                <li><input type="checkbox" ng-model="features.scaleX" ng-click="updateJson('scaleX')"> Scale-X Label <input type="text" ng-model="json.scaleX.label.text" placeholder="Scale X Text"  ng-disabled="!features.scaleX"></li>
-                                <li><input type="checkbox" ng-model="features.scaleY" ng-click="updateJson('scaleY')"> Scale-Y Label <input type="text" ng-model="json.scaleY.label.text" placeholder="Scale Y Text"  ng-disabled="!features.scaleY"></li>
-                            </ul>
+                        <div id="tab-2" class="tab" ng-click="changeTab($event)" data-example="2">
+                            <span>Customizable</span>
+                            <div class="tab-description">
+                                <span style="font-size: 0.8em">Charts can be extensively customized with the <a href="http://www.zingchart.com/docs/json-attributes-syntax/">ZingChart library</a>.</span>
+                            </div>
+                        </div>
+                        <div id="tab-6" class="tab" ng-click="changeTab($event)" data-example="6">
+                            <span>Data Binding</span>
+                            <div class="tab-description">
+                                <span style="font-size: 0.8em">Utilize the power of Angular by allowing the directive to watch for changes to the configuration and the values of the chart, and dynamically update.</span>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab" ng-click="changeTab($event)" data-example="3">
+                            <span>Fully Capable</span>
+                            <div class="tab-description">
+                                <span style="font-size: 0.8em">The directive is simply a wrapper around ZingChart allowing users to have full capabilites of the library.</span>
+                            </div>
+                        </div>
+                        <div id="tab-4" class="tab" ng-click="changeTab($event)" data-example="4">
+                            <span>Maps</span>
+                            <div class="tab-description">
+                                <span style="font-size: 0.8em">Maps can easily be rendered utilizing the ZingChart library. Even our <a href="http://www.zingchart.com/docs/chart-types/maps/#maps__loadGeoJSON">new GeoJSON</a> maps are supported with the directive!</span>
+                            </div>
+                        </div>
+                        <div id="tab-5" class="tab" ng-click="changeTab($event)" data-example="5">
+                            <span>Responsive</span>
+                            <div class="tab-description">
+                                <span style="font-size: 0.8em">Allow ZingChart to resize dynamically to the full width and height of it's parent. Drag the bottom right hand corner to see the responsiveness.</span>
+                            </div>
+                        </div>
+
+                        <div id="tab-7" class="tab" ng-click="changeTab($event)" data-example="7">
+                            <span>AJAX / Real-time</span>
+                            <div class="tab-description">
+                                <span style="font-size: 0.8em">Fetch new data using AJAX, change the scope variable, automatically update the chart!</span>
+                            </div>
                         </div>
                     </section>
-                </section>
-                <section id="col-2">
-                    <pre id="output"></pre>
-                </section>
+                    <section id="frames" style="margin-left: 1px;">
+                        <iframe data-example="7" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/pjerjY/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+
+                        <iframe data-example="1" height='600' scrolling='no' src='http://codepen.io/zingchart/embed/avJJym/?height=600&theme-id=19632&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px;'></iframe>
+                        <iframe data-example="2" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/QjpgLg/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe data-example="3" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/meWwQW/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe data-example="4" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/NGpgja/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe data-example="5" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/yYMXdZ/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe data-example="6" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/LpWjYZ/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                    </section>
+                </div>
             </div>
-           </div>
         </section>
 
-        <script>
-        $("#series-1").spectrum({
-            showPaletteOnly: true,
-            showPalette:true,
-            hideAfterPaletteSelect : true,
-            color: '#F44336',
-            palette: [
-                ['#F44336', '#FF4081', '#9C27B0','#2196F3', '#75d8ff'],
-                ['#00BCD4', '#4CAF50', '#FF5722', '#FFEB3B', '#9E9E9E']
-            ],
-            change : function(color){
-                var $scope = angular.element(document.getElementById('chart-1')).scope();
-                $scope.json.series[0].lineColor = color.toHexString();
-                $scope.json.series[0].backgroundColor = color.toHexString();
-                $scope.json.series[0].borderColor = color.toHexString();
-                $scope.json.series[0].marker.backgroundColor = color.toHexString();
-                $scope.$apply();
-            }
-        });
-        $("#series-2").spectrum({
-            showPaletteOnly: true,
-            showPalette:true,
-            hideAfterPaletteSelect : true,
-            color: '#2196F3',
-            palette: [
-                ['#F44336', '#FF4081', '#9C27B0','#2196F3', '#75d8ff'],
-                ['#00BCD4', '#4CAF50', '#FF5722', '#FFEB3B', '#9E9E9E']
-            ],
-            change : function(color){
-                var $scope = angular.element(document.getElementById('chart-1')).scope();
-                $scope.json.series[1].lineColor = color.toHexString();
-                $scope.json.series[1].backgroundColor = color.toHexString();
-                $scope.json.series[1].borderColor = color.toHexString();
-                $scope.json.series[1].marker.backgroundColor = color.toHexString();
-                $scope.$apply();
-            }
-        });
-        </script>
     </body>
-
 </html>
