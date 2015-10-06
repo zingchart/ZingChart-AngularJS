@@ -1,6 +1,7 @@
 <html ng-app="myApp">
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-touch.min.js"></script>
         <script src="src/zingchart-angularjs.js"></script>
         <script src="bower_components/zingchart/client/zingchart.min.js"></script>
         <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -8,7 +9,7 @@
         <link href='styles/main.css' rel='stylesheet' type='text/css'>
 
         <script>
-            var app = angular.module('myApp', ['zingchart-angularjs']);
+            var app = angular.module('myApp', ['zingchart-angularjs', 'ngTouch']);
 
             app.controller('MainController', function($scope, $interval, $compile){
                 $scope.someModel = "foobar";
@@ -23,7 +24,7 @@
                         var oldDescription =  $scope.currentTab.querySelector('div');
                         oldDescription.className= "tab-description";
                         var num = $scope.currentTab.getAttribute('data-example');
-                        var frameEl = document.getElementById('frames').querySelector('[data-example="'+num+'" ');
+                        var frameEl = document.getElementById('example-'+num);
                         frameEl.style.display = "none"
                     }
                     $scope.currentTab = event.currentTarget;
@@ -31,7 +32,7 @@
                     var description =  event.currentTarget.querySelector('div');
                     description.className= "tab-description selected";
                     var num = $scope.currentTab.getAttribute('data-example');
-                    var frameEl = document.getElementById('frames').querySelector('[data-example="'+num+'" ');
+                    var frameEl = document.getElementById('example-'+num);
                     frameEl.style.display = "initial"
                 }
             });
@@ -101,13 +102,13 @@
                         </div>
                     </section>
                     <section id="frames" style="margin-left: 1px;">
-                        <iframe data-example="7" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/pjerjY/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
-                        <iframe data-example="1" class="codepen-iframe" height='600' scrolling='no' src='http://codepen.io/zingchart/embed/avJJym/?height=600&theme-id=19632&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px;'></iframe>
-                        <iframe data-example="2" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/QjpgLg/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
-                        <iframe data-example="3" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/meWwQW/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
-                        <iframe data-example="4" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/NGpgja/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
-                        <iframe data-example="5" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/yYMXdZ/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
-                        <iframe data-example="6" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/LpWjYZ/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe id="example-7" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/pjerjY/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe id="example-1" class="codepen-iframe" height='600' scrolling='no' src='http://codepen.io/zingchart/embed/avJJym/?height=600&theme-id=19632&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px;'></iframe>
+                        <iframe id="example-2" class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/QjpgLg/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe id="example-3"  class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/meWwQW/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe id="example-4"  class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/NGpgja/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe id="example-5"  class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/yYMXdZ/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
+                        <iframe id="example-6"  class="codepen-iframe" height='600' scrolling='no' src="http://codepen.io/zingchart/embed/LpWjYZ/?height=600&theme-id=19632&default-tab=result" frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 700px; display:none'></iframe>
                     </section>
                 </div>
             </div>
@@ -204,7 +205,7 @@ $scope.myJson = {
                     <section>
                         <div style="font-size: 1.2em;  margin: 10px;">5. Try!</div>
                         <div style="margin: 0 auto;">
-                            <iframe class="codepen-iframe" data-example="1" height='600' scrolling='no' src='http://codepen.io/zingchart/embed/avJJym/?height=600&theme-id=19632&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%; max-width: 700px;'></iframe>
+                            <iframe class="codepen-iframe" height='600' scrolling='no' src='http://codepen.io/zingchart/embed/avJJym/?height=600&theme-id=19632&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%; max-width: 700px;'></iframe>
                         </div>
                     </section>
                 </div>
