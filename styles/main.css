@@ -212,6 +212,9 @@ a, pre {
     cursor: pointer;
     padding: 10px;
 }
+.tab:last-child{
+    border-bottom: 0px;
+}
 .tab.selected{
     background-color: #939598;
     padding-top:10px;
