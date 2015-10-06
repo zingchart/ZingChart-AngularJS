@@ -16,6 +16,7 @@
   ],
   "homepage": "http://www.zingchart.com",
   "dependencies": {
-    "zingchart": "latest"
+    "zingchart": "latest",
+    "google-code-prettify": "~1.0.4"
   }
 }
