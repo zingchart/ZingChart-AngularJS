@@ -4,16 +4,16 @@
 .pun, .opn, .clo { color: #93a1a1; }
 .fun { color: #dc322f; }
 .str, .atv { color: #D14; }
-.kwd, .linenums .tag { color: #1e347b; }
+.kwd, .linenums .tag { color: #1526B8; }
 .typ, .atn, .dec, .var { color: teal; }
 .pln { color: #48484c; }
 
 .prettyprint {
     padding: 10px !important;
-    margin: 0px !important;
+    margin: 20px 0px !important;
     background-color: white;
     border-radius: 5px;
-    border: 1px solid #e1e1e8;
+    border: 1px solid #D9D9D9 !important;
 }
 
 .prettyprint.linenums {
@@ -46,24 +46,28 @@ body{
     padding: 0px;
     margin: 0px;
     font-family : "Helvetica";
-    font-weight: 200;
 }
 
 a:link {
-    color: #00BAF0;
+    color: #043848;
     text-decoration: none;
+    font-weight:500;
 }
 a:visited {
-    color: #00BAF0;
+    color: #043848;
     text-decoration: none;
+    font-weight:500;
 }
 a:hover {
-    color: #26ceff;
+    color: #1088ac;
     text-decoration: none;
+    font-weight:500;
 }
 a:active {
-    color: #00BAF0;
+    color: #043848;
     text-decoration: none;
+    font-weight:500;
+
 }
 
 a, pre {
@@ -78,8 +82,12 @@ a, pre {
     box-sizing: border-box;
 }
 
-.codepen-iframe {
+#frames {
     max-width: 700px;
+    width:100%;
+}
+.codepen-iframe {
+    width:100%;
 }
 .code-inline{
     background-color : #eee;
@@ -91,7 +99,7 @@ a, pre {
     display: -webkit-flex;
     justify-content: center;
     -webkit-justify-content: center;
-    padding: 50px;
+    padding: 20px;
     flex-direction: column;
     -webkit-flex-direction: column;
 }
@@ -106,13 +114,20 @@ a, pre {
     display: -webkit-flex;
     flex-direction: row;
     -webkit-flex-direction: row;
-    border: 1px solid #e9edf1;
+    border-bottom: 1px solid #e9edf1;
+}
 
+.row-header{
+    text-align:center;
+    font-size: 2em;
+    font-weight: 500;
+    margin-top: 40px;
+    color: #043848
 }
 
 #row-1{
-    background-color : #9A9A9A;
-    height: 640px;
+    background-color : #043848;
+    height: 750px;
     width: 100%;
     display: flex;
     display: -webkit-flex;
@@ -121,7 +136,7 @@ a, pre {
     justify-content: center;
     -webkit-justify-content: center;
     text-align:center;
-    padding: 20px;
+    padding: 70px;
 
 }
 #row-2{
@@ -130,17 +145,17 @@ a, pre {
     padding: 20px;
 }
 #row-3{
-    color:white;
-    background-color : #40454C;
+    color:#505050;
+    background-color : #F4F4F4;
     width: 100%;
     padding: 20px;
     text-align:center;
 }
 
 #row-4{
-    background-color : white;
+    background-color : #7DA636;
     width: 100%;
-    padding: 20px;
+    padding: 40px 0px;
 }
 
 .tab-description{
@@ -158,11 +173,21 @@ a, pre {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
 }
+._tab.selected:after{
+    content : "";
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    z-index: 1000;
+    border-top : 10px solid transparent;
+    border-bottom:10px solid transparent;
+    border-left: 10px solid #939598;
+    margin-left: -8px;
+}
 
 #tabs-container{
     display : flex;
     display: -webkit-flex;
-
     flex-direction: column;
     -webkit-flex-direction: column;
     list-style-type: none;
@@ -174,7 +199,6 @@ a, pre {
 .tab {
     display: flex;
     display: -webkit-flex;
-
     flex-grow: 1;
     font-size: 1.2em;
     border-bottom: 1px solid white;
@@ -184,12 +208,12 @@ a, pre {
     justify-content: center;
     -webkit-justify-content: center;
     color : white;
-    background-color: #00BAF0;
+    background-color: #b9babb;
     cursor: pointer;
     padding: 10px;
 }
 .tab.selected{
-    background-color: #00384A;
+    background-color: #939598;
     padding-top:10px;
     transition-property : height, background-color;
     transition-duration: 700ms;
@@ -210,13 +234,13 @@ a, pre {
 .three-up{
     display: flex;
     display: -webkit-flex;
-
     flex-direction: row;
     -webkit-flex-direction: row;
     justify-content: space-around;
     -webkit-justify-content: space-around;
     flex-wrap: wrap;
     padding : 10px;
+    line-height: 1.4em;
 }
 .three-up-item{
     width: 300px;
@@ -226,10 +250,40 @@ a, pre {
     padding: 10px 10px;
     font-size: 1em;
     background-color : white;
+    color : #505050;
+    font-weight: 200;
+}
+
+.three-up-title{
+    margin-top:10px;
+    color :#043848;
+    font-weight: 500;
 }
 
 .three-up-item > header{
     font-size: 1.4em;
     font-weight: normal;
     margin: 20px 0px;
+}
+
+.usage-text{
+    font-size: 1.2em;
+    margin: 10px;
+    font-weight: 500;
+}
+
+.big-button{
+    margin : 10px;
+    cursor: pointer;
+    padding: 15px;
+    min-width: 300px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 1.1em;
+    background-color : #587425;
+    color : #FFFFFF;
+}
+
+.big-button:hover{
+    background-color : #4c6520;
 }
