@@ -3,8 +3,8 @@
 ---
 An AngularJS directive for ZingChart to make your charts work dynamically with your data.
 
-#### Try out our demo! http://zingchart.github.io/ZingChart-AngularJS
-#### Full blog post @ http://www.zingchart.com/blog/2015/03/05/zingchart-angularjs/
+#### Check out our getting started page! (http://zingchart.github.io/ZingChart-AngularJS)
+#### Fully detailed blog post @ (http://www.zingchart.com/blog/2015/03/05/zingchart-angularjs/)
 
 * [Install](#install)
 * [Usage](#usage)
@@ -14,35 +14,70 @@ An AngularJS directive for ZingChart to make your charts work dynamically with y
 
 <a id="install"></a>
 ## Install
+
+Install the directive using one of the following options:
+
+**Bower**
+
 ```
 bower install zingchart-angularjs
 ```
 
-Inject into your app...
+**NPM**
 
-```js
-var app = angular.module('myApp', ['zingchart-angularjs']);
 ```
+npm install zingchart-angularjs
+```
+
+**Download**
+
+[https://github.com/zingchart/ZingChart-AngularJS/archive/master.zip](https://github.com/zingchart/ZingChart-AngularJS/archive/master.zip)
 
 <a id="usage"></a>
-## Usage
-**_javascript_**
+## Quick Start
 
-```js
-//In an Angular Controller
-$scope.myValues = [5,6,3,2,3];
+**Step 1 : Include the following dependencies into your HTML file**
+
+```
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="zingchart.min.js"></script>
+<script type="text/javascript" src="zingchart-angularjs.js"></script>
 ```
 
-**_markup_**
+**Step 2 :Inject the directive into your application**
+
+```
+angular.module('myApp', ['zingchart-angularjs']);
+```
+
+**Step 3 : Insert the ZingChart-AngularJS directive into your application**
+
+*As an element*
 
 ```html
-<zingchart id="chart-1" zc-values="myValues"></zingchart>
+<zingchart id="myChart" zc-json="myJson" zc-height=500 zc-width=600></zingchart>
 ```
 
 or
 
+*As an attribute*
+
 ```html
-<div zingchart id="chart-1" zc-values="myValues"></div>
+<div zingchart id="myChart" zc-json="myJson" zc-height=500 zc-width=600></div>
+```
+
+**Step 4 : Configure your chart through a scope variable**
+
+```
+...
+$scope.myJson = {
+    type : 'line',
+    series : [
+      { values : [54,23,34,23,43] },
+      { values : [10,15,16,20,40] }
+    ]
+};
+...
 ```
 
 
