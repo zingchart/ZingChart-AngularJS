@@ -2,6 +2,8 @@
     'use strict';
     angular.module('zingchart-angularjs', [] )
     .directive('zingchart', [function(){
+        var currentAutoId = 1;
+
         return {
             restrict : 'EA',
             scope : {
@@ -10,6 +12,17 @@
                 zcRender : '='
             },
             controller : ['$scope', '$element', '$attrs', function($scope, $element, $attrs){
+                var id;
+
+                // Get or generate id
+                if(!$element.attr('id')){
+                    id = 'zingchart-auto-' + currentAutoId;
+                    currentAutoId++;
+                    $element.attr('id', id);
+                } else {
+                    id = $element.attr('id');
+                }
+
                 var initializing = {
                     json : true,
                     values :true
@@ -21,12 +34,12 @@
                     }
                     if($scope.zcValues){
                         if(isMultiArray($scope.zcValues)){
-                            zingchart.exec($attrs.id, 'setseriesvalues', {
+                            zingchart.exec(id, 'setseriesvalues', {
                                 values : $scope.zcValues
                             });
                         }
                         else{
-                            zingchart.exec($attrs.id, 'setseriesvalues', {
+                            zingchart.exec(id, 'setseriesvalues', {
                                 values : [$scope.zcValues]
                             });
                         }
@@ -64,7 +77,7 @@
                         else{
                             _json.type = ($attrs.zcType) ? $attrs.zcType : _json.type
                         }
-                        zingchart.exec($attrs.id, 'setdata', {
+                        zingchart.exec(id, 'setdata', {
                             data : _json
                         });
                     }
@@ -72,10 +85,7 @@
 
             }],
             link : function($scope, $element, $attrs){
-                //Setup json :
-                if(!$attrs.id){
-                    throw new Error('ZingChart-AngularJS : Attribute ID needed');
-                }
+                var id = $element.attr('id');
 
                 //Defaults
                 var _json = {
@@ -128,7 +138,7 @@
                 _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
                 _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
                 _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
-                _json.id = $attrs.id;
+                _json.id = id;
 
                 //Set the box-model of the container element if the height or width are defined as 100%.
                 if(_json.width === "100%" && !$element.width){
