@@ -3,7 +3,7 @@
 ---
 An AngularJS directive for ZingChart to make your charts work dynamically with your data.
 
-#### Check out our getting started page! (http://zingchart.github.io/ZingChart-AngularJS)
+#### Check out our getting started page for examples! (http://zingchart.github.io/ZingChart-AngularJS)
 #### Fully detailed blog post @ (http://www.zingchart.com/blog/2015/03/05/zingchart-angularjs/)
 
 * [Install](#install)
@@ -99,7 +99,7 @@ Since the element `zingchart` is not a valid HTML element, the browser will not 
 
 We reccomended using the attribute binding syntax on a div to automatically inherit the `display:block` CSS attribute. You will also need to apply a value of `100%` to the zc-height and zc-width attributes.  
 
-Example : 
+Example :
 
 ```
 <div zingchart id="chart-1" zc-width="100%" zc-height="100%"></div>
@@ -255,5 +255,3 @@ Will override the render type inside of a zc-render and zc-data object if define
 //.html
 <zingchart id="chart-1" zc-type="bar"/zingchart>
 ```
-
-
