@@ -1,6 +1,6 @@
 {
   "name": "ZingChart-AngularJS",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "An AngularJS wrapper for ZingChart",
   "main": "src/zingchart-angularjs.js",
   "keywords": [
