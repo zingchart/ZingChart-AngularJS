@@ -7,20 +7,27 @@
         return {
             restrict : 'EA',
             scope : {
+                id : '@',
                 zcValues : '=',
                 zcJson : '=',
                 zcRender : '='
             },
             controller : ['$scope', '$element', '$attrs', function($scope, $element, $attrs){
                 var id;
-
                 // Get or generate id
-                if(!$element.attr('id')){
+                if(!$attrs.id){
                     id = 'zingchart-auto-' + currentAutoId;
                     currentAutoId++;
-                    $element.attr('id', id);
-                } else {
-                    id = $element.attr('id');
+                    $attrs.id = id;
+                }
+                else{
+                    if($attrs.id.indexOf('{{') > -1){
+                        id=$scope.id;
+                        $element.attr('id', id);
+                    }
+                    else{
+                        id = $attrs.id;
+                    }
                 }
 
                 var initializing = {
