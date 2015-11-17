@@ -190,7 +190,7 @@ $scope.myObj = {
 //.html
 <zingchart id="chart-1" zc-values="myValues" zc-json="myObj"></zingchart>
 ```
-Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override the "values" inside of your zc-data object
+Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override the "values" inside of your zc-data object. This only works when the `graphset` parameter is ommitted from your zc-json object. It was a design decision to simplify zc-values to target the first object in a graphset, rather than allowing the users to specify which object to target. If you do need the `graphset` parameter in zingchart, then simply use the zc-json object alone. 
 
 ---
 
