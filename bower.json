@@ -17,10 +17,5 @@
   "homepage": "http://www.zingchart.com",
   "dependencies": {
     "zingchart": "latest"
-  },
-  "ignore" : [
-     "**/.*",
-    "node_modules",
-    "bower_components"
-    ]
+  }
 }
