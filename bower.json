@@ -18,5 +18,9 @@
   "dependencies": {
     "zingchart": "latest"
   },
-  "ignore" : []
+  "ignore" : [
+     "**/.*",
+    "node_modules",
+    "bower_components"
+    ]
 }
