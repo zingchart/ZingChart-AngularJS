@@ -9,7 +9,7 @@
     "karma" : "latest",
     "karma-jasmine" : "latest",
     "angular-mocks": "^1.3.14",
-    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-phantomjs-launcher": "latest",
     "karma-chrome-launcher": "^0.1.7",
     "jquery": "^2.1.3",
     "chai": "^2.1.0",
