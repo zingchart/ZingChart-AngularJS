@@ -148,10 +148,10 @@
                 _json.id = id;
 
                 //Set the box-model of the container element if the height or width are defined as 100%.
-                if(_json.width === "100%" && !$element.width){
+                if(_json.width === "100%" && !$element.css('width')){
                     $element.css('width', '100%');
                 }
-                if(_json.height === "100%" && !$element.height){
+                if(_json.height === "100%" && !$element.css('height')){
                     $element.css('height', '100%');
                 }
 
