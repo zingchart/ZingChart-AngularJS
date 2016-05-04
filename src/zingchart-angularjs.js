@@ -60,22 +60,10 @@
                     }
                     if($attrs.zcJson){
                         var _json = $scope.zcJson;
+
                         //Inject values
                         if($scope.zcValues){
-                            for(var i = 0; i < $scope.zcValues.length; i++){
-                                if(_json.series){
-                                    if(_json.series[i]){
-                                        _json.series[i].values = $scope.zcValues[i];
-                                    }
-                                    else{
-                                        _json.series.push({'values' : $scope.zcValues[i]});
-                                    }
-                                }
-                                else{
-
-                                    _json.series = [{'values' : $scope.zcValues[i]}];
-                                }
-                            }
+			                injectValues($scope.zcValues, _json);
                         }
                         //Inject type
                         if(JSON.stringify(_json).indexOf('type') === -1){
@@ -116,29 +104,7 @@
 
                 //Add Values
                 if($scope.zcValues){
-                    if(typeof _json.data.series === 'undefined'){
-                        _json.data.series = [];
-                    }
-                    //Single Series
-                    if(!isMultiArray($scope.zcValues)){
-                        if(_json.data.series[0]){
-                            _json.data.series[0].values = $scope.zcValues;
-                        }
-                        else{
-                            _json.data.series.push({'values' : $scope.zcValues});
-                        }
-                    }
-                    //Multi Series
-                    else{
-                        for(var i = 0; i < $scope.zcValues.length; i++){
-                            if(_json.data.series[i]){
-                                _json.data.series[i].values = $scope.zcValues[i];
-                            }
-                            else{
-                                _json.data.series.push({'values' : $scope.zcValues[i]});
-                            }
-                        }
-                    }
+                	injectValues($scope.zcValues, _json.data);
                 }
 
                 //Add other properties
@@ -160,6 +126,38 @@
         };
     }]);
 
+	/**
+	* Injects values into each series, and handles multi series cases.
+	* @param the values to inject into the config object
+	* @param the configuration object itself.
+	*/
+	function injectValues(values, config) {
+		if(typeof config.series === 'undefined'){
+			config.series = [];
+		}
+		//Single Series
+		if(!isMultiArray(values)){
+			if(config.series[0]){
+				config.series[0].values = values;
+			}
+			else{
+				config.series.push({'values' : values});
+			}
+		}
+		//Multi Series
+		else{
+			for(var i = 0; i < values.length; i++){
+				if(config.series[i]){
+					config.series[i].values = values[i];
+				}
+				else{
+					config.series.push({'values' : values[i]});
+				}
+			}
+		}
+		return config;
+	}
+
     /**
     *   Helper function to merge an object into another, overwriting properties.
     *   A shallow, not a recursive merge
@@ -180,12 +178,7 @@
     *   @returns {boolean} - true if the array is multidimensional, false otherwise
     */
     function isMultiArray(_array){
-        if(typeof _array[0] === "string" || typeof _array[0] === "number"){
-            return false;
-        }
-        else{
-            return true;
-        }
+		return Array.isArray(_array[0]);
     }
 
 })();
