@@ -6,22 +6,21 @@
   "author": "ZingChart",
   "homepage": "www.zingchart.com",
   "devDependencies": {
-    "karma" : "latest",
-    "karma-jasmine" : "latest",
     "angular-mocks": "^1.3.14",
-    "karma-phantomjs-launcher": "latest",
-    "karma-chrome-launcher": "^0.1.7",
-    "jquery": "^2.1.3",
     "chai": "^2.1.0",
+    "jquery": "^2.1.3",
+    "karma": "^1.1.2",
     "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^1.0.2",
     "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^1.0.1",
     "mocha": "^2.1.0"
   },
   "dependencies": {
     "angular": "^1.3.14"
-    },
-    "scripts":{
-        "test" : "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
-    }
-
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+  }
 }
