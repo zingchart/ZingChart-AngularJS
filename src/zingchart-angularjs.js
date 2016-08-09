@@ -19,6 +19,9 @@
                     id = 'zingchart-auto-' + currentAutoId;
                     currentAutoId++;
                     $attrs.id = id;
+                    // newly generated id has to be put back on the element too to meet
+                    // zingcharts requirements
+                    $element.attr('id', id);
                 }
                 else{
                     if($attrs.id.indexOf('{{') > -1){

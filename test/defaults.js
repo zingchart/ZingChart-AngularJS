@@ -1,5 +1,5 @@
 describe('ZingChart Directive', function(){
-
+    this.timeout(5000);
     beforeEach(module('zingchart-angularjs'));
 
     var _$scope;
@@ -10,6 +10,12 @@ describe('ZingChart Directive', function(){
             _$scope = $rootScope.$new();
             _$compile = $compile;
             var completed = 0;
+            zingchart.complete=function(p){
+                completed++;
+                if(completed == 8){
+                    done();
+                }
+            }
             $('<div id="container"></div>').appendTo('body');
 
             //Cases 1+2
@@ -119,12 +125,6 @@ describe('ZingChart Directive', function(){
 
             var $element = _$compile(document.getElementById('container'))(_$scope);
 
-            zingchart.complete=function(p){
-                completed++;
-                if(completed == 8){
-                    done();
-                }
-            }
         });
     });
     //Case 1
