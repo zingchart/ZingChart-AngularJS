@@ -80,7 +80,10 @@
                         });
                     }
                 },true);
-
+               
+                $scope.$on('$destroy', function() {
+                    zingchart.exec($scope.id,'destroy');
+                });
             }],
             link : function($scope, $element, $attrs){
                 var id = $element.attr('id');
