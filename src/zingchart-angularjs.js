@@ -1,3 +1,8 @@
+/**
+* File: zingchart-angularjs.js
+* Version: v1.1.0
+*/
+
 (function(){
     'use strict';
     angular.module('zingchart-angularjs', [] )
@@ -80,7 +85,7 @@
                         });
                     }
                 },true);
-               
+
                 $scope.$on('$destroy', function() {
                     zingchart.exec($scope.id,'destroy');
                 });
