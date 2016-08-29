@@ -40,7 +40,8 @@
 
                 var initializing = {
                     json : true,
-                    values :true
+                    values : true,
+                    render : true
                 };
                 $scope.$watchCollection('zcValues', function(){
                     if(initializing.values){
@@ -86,53 +87,66 @@
                     }
                 },true);
 
+                $scope.$watch('zcRender', function(newValue, oldValue, scope) {
+                    if(initializing.render){
+                        initializing.render = !initializing.render;
+                        return;
+                    }
+
+                    // Destroy the chart and re-render it with changed attributesS
+                    zingchart.exec(scope.id, 'destroy');
+                    scope.zcRender = newValue;
+                    scope.renderChart();
+                },true);
+
+                $scope.renderChart = function (){
+                    var id = $element.attr('id');
+                    //Defaults
+                    var _json = {
+                        data : {
+                            type : 'line',
+                            series : []
+                        },
+                        width : 600,
+                        height: 400
+                    };
+
+                    //Add render object.
+                    if($scope.zcRender){
+                        mergeObject($scope.zcRender, _json);
+                    }
+
+                    //Add JSON object
+                    if($scope.zcJson){
+                        mergeObject($scope.zcJson, _json.data);
+                    }
+
+                    //Add Values
+                    if($scope.zcValues){
+                        injectValues($scope.zcValues, _json.data);
+                    }
+
+                    //Add other properties
+                    _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
+                    _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
+                    _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
+                    _json.id = id;
+
+                    //Set the box-model of the container element if the height or width are defined as 100%.
+                    if(_json.width === "100%" && !$element.css('width')){
+                        $element.css('width', '100%');
+                    }
+                    if(_json.height === "100%" && !$element.css('height')){
+                        $element.css('height', '100%');
+                    }
+                    zingchart.render(_json);
+                }
                 $scope.$on('$destroy', function() {
                     zingchart.exec($scope.id,'destroy');
                 });
             }],
-            link : function($scope, $element, $attrs){
-                var id = $element.attr('id');
-
-                //Defaults
-                var _json = {
-                    data : {
-                        type : 'line',
-                        series : []
-                    },
-                    width : 600,
-                    height: 400
-                };
-
-                //Add render object.
-                if($scope.zcRender){
-                    mergeObject($scope.zcRender, _json);
-                }
-
-                //Add JSON object
-                if($scope.zcJson){
-                    mergeObject($scope.zcJson, _json.data);
-                }
-
-                //Add Values
-                if($scope.zcValues){
-                	injectValues($scope.zcValues, _json.data);
-                }
-
-                //Add other properties
-                _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
-                _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
-                _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
-                _json.id = id;
-
-                //Set the box-model of the container element if the height or width are defined as 100%.
-                if(_json.width === "100%" && !$element.css('width')){
-                    $element.css('width', '100%');
-                }
-                if(_json.height === "100%" && !$element.css('height')){
-                    $element.css('height', '100%');
-                }
-
-                zingchart.render(_json);
+            link : function($scope){
+                $scope.renderChart();
             }
         };
     }]);
