@@ -141,6 +141,7 @@
                     }
                     zingchart.render(_json);
                 }
+                
                 $scope.$on('$destroy', function() {
                     zingchart.exec($scope.id,'destroy');
                 });
