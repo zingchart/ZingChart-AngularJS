@@ -93,7 +93,7 @@
                         return;
                     }
 
-                    // Destroy the chart and re-render it with changed attributesss
+                    // Destroy the chart and re-render it with changed attributes
                     zingchart.exec(scope.id, 'destroy');
                     scope.zcRender = newValue;
                     scope.renderChart();
