@@ -1,7 +1,17 @@
-# ZingChart-AngularJS
-## version 1.2.0
+![](https://img.shields.io/npm/v/zingchart-angularjs)
+![](https://github.com/zingchart/zingchart-angularjs/workflows/Test/badge.svg)
+![](https://img.shields.io/npm/dw/zingchart-angularjs)
 
-[![Code Climate](https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg)](https://codeclimate.com/github/zingchart/ZingChart-AngularJS) [![Build Status](https://travis-ci.org/zingchart/ZingChart-AngularJS.svg)](https://travis-ci.org/zingchart/ZingChart-AngularJS)
+![](https://img.shields.io/david/zingchart/zingchart-angularjs)
+![](https://img.shields.io/david/peer/zingchart/zingchart-angularjs)
+
+
+## Quickstart Guide
+
+Quickly add charts to your Angular application with our ZingChart component
+
+This guide assumes some basic working knowledge of Angular and its Object Oriented interface.
+
 ---
 An AngularJS directive for ZingChart to make your charts work dynamically with your data.
 
