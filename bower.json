@@ -1,7 +1,10 @@
 {
   "name": "ZingChart-AngularJS",
   "version": "1.2.0",
-  "description": "An AngularJS wrapper for ZingChart",
+  "description": "ZingChart AngularJS Component wrapper to allow native AngularJS syntax for javascript charts, chart events, chart methods and chart styling.",
+  "license": "MIT",
+  "repository": "zingchart/zingchart-angularjs",
+  "homepage": "https://www.zingchart.com/",
   "main": "src/zingchart-angularjs.js",
   "keywords": [
     "zingchart",
@@ -14,7 +17,6 @@
   "authors": [
     "ZingChart"
   ],
-  "homepage": "http://www.zingchart.com",
   "dependencies": {
     "zingchart": "latest"
   }
