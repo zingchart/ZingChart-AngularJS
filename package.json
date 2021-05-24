@@ -1,27 +1,33 @@
 {
   "name": "zingchart-angularjs",
-  "version": "1.0.6",
-  "description": "A ZingChart AngularJS directive",
+  "version": "1.2.0",
+  "description": "ZingChart AngularJS Component wrapper to allow native AngularJS syntax for javascript charts, chart events, chart methods and chart styling.",
+  "author": "ZingSoft Inc.",
+  "license": "MIT",
+  "repository": "zingchart/zingchart-angularjs",
+  "homepage": "https://www.zingchart.com/",
   "main": "index.js",
-  "author": "ZingChart",
-  "homepage": "www.zingchart.com",
   "devDependencies": {
-    "karma" : "latest",
-    "karma-jasmine" : "latest",
     "angular-mocks": "^1.3.14",
-    "karma-phantomjs-launcher": "^0.1.4",
-    "karma-chrome-launcher": "^0.1.7",
-    "jquery": "^2.1.3",
     "chai": "^2.1.0",
+    "jquery": "^2.1.3",
+    "karma": "^1.1.2",
     "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^1.0.2",
     "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^1.0.1",
     "mocha": "^2.1.0"
   },
   "dependencies": {
-    "angular": "^1.3.14"
-    },
-    "scripts":{
-        "test" : "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
-    }
-
+    "angular": "^1.3.14",
+    "zingchart": "^2.9.1"
+  },
+  "scripts": {
+    "preinstall": "npm i bower -g",
+    "publish": "npm publish --access public",
+    "publish:tag": "npm publish --tag beta --access public",
+    "publish:test": "npm publish --dry-run",
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+  }
 }

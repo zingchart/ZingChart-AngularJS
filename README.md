@@ -1,5 +1,17 @@
-# ZingChart-AngularJS
-[![Code Climate](https://codeclimate.com/github/zingchart/ZingChart-AngularJS/badges/gpa.svg)](https://codeclimate.com/github/zingchart/ZingChart-AngularJS) [![Build Status](https://travis-ci.org/zingchart/ZingChart-AngularJS.svg)](https://travis-ci.org/zingchart/ZingChart-AngularJS)
+![](https://img.shields.io/npm/v/zingchart-angularjs)
+![](https://github.com/zingchart/zingchart-angularjs/workflows/Test/badge.svg)
+![](https://img.shields.io/npm/dw/zingchart-angularjs)
+
+![](https://img.shields.io/david/zingchart/zingchart-angularjs)
+![](https://img.shields.io/david/peer/zingchart/zingchart-angularjs)
+
+
+## Quickstart Guide
+
+Quickly add charts to your Angular application with our ZingChart component
+
+This guide assumes some basic working knowledge of Angular and its Object Oriented interface.
+
 ---
 An AngularJS directive for ZingChart to make your charts work dynamically with your data.
 
@@ -190,7 +202,7 @@ $scope.myObj = {
 //.html
 <zingchart id="chart-1" zc-values="myValues" zc-json="myObj"></zingchart>
 ```
-Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override the "values" inside of your zc-data object
+Note: You can add series values into this object like you normally would while using ZingChart. However if you define the directives zc-values parameter, those values will override the "values" inside of your zc-data object. This only works when the `graphset` parameter is ommitted from your zc-json object. It was a design decision to simplify zc-values to target the first object in a graphset, rather than allowing the users to specify which object to target. If you do need the `graphset` parameter in zingchart, then simply use the zc-json object alone.
 
 ---
 

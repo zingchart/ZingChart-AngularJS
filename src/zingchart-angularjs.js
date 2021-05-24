@@ -1,3 +1,8 @@
+/**
+* File: zingchart-angularjs.js
+* Version: v1.1.0
+*/
+
 (function(){
     'use strict';
     angular.module('zingchart-angularjs', [] )
@@ -19,6 +24,9 @@
                     id = 'zingchart-auto-' + currentAutoId;
                     currentAutoId++;
                     $attrs.id = id;
+                    // newly generated id has to be put back on the element too to meet
+                    // zingcharts requirements
+                    $element.attr('id', id);
                 }
                 else{
                     if($attrs.id.indexOf('{{') > -1){
@@ -32,7 +40,8 @@
 
                 var initializing = {
                     json : true,
-                    values :true
+                    values : true,
+                    render : true
                 };
                 $scope.$watchCollection('zcValues', function(){
                     if(initializing.values){
@@ -60,22 +69,10 @@
                     }
                     if($attrs.zcJson){
                         var _json = $scope.zcJson;
+
                         //Inject values
                         if($scope.zcValues){
-                            for(var i = 0; i < $scope.zcValues.length; i++){
-                                if(_json.series){
-                                    if(_json.series[i]){
-                                        _json.series[i].values = $scope.zcValues[i];
-                                    }
-                                    else{
-                                        _json.series.push({'values' : $scope.zcValues[i]});
-                                    }
-                                }
-                                else{
-
-                                    _json.series = [{'values' : $scope.zcValues[i]}];
-                                }
-                            }
+			                injectValues($scope.zcValues, _json);
                         }
                         //Inject type
                         if(JSON.stringify(_json).indexOf('type') === -1){
@@ -90,75 +87,102 @@
                     }
                 },true);
 
+                $scope.$watch('zcRender', function(newValue, oldValue, scope) {
+                    if(initializing.render){
+                        initializing.render = !initializing.render;
+                        return;
+                    }
+
+                    // Destroy the chart and re-render it with changed attributes
+                    zingchart.exec(scope.id, 'destroy');
+                    scope.zcRender = newValue;
+                    scope.renderChart();
+                },true);
+
+                $scope.renderChart = function (){
+                    var id = $element.attr('id');
+                    //Defaults
+                    var _json = {
+                        data : {
+                            type : 'line',
+                            series : []
+                        },
+                        width : 600,
+                        height: 400
+                    };
+
+                    //Add render object.
+                    if($scope.zcRender){
+                        mergeObject($scope.zcRender, _json);
+                    }
+
+                    //Add JSON object
+                    if($scope.zcJson){
+                        mergeObject($scope.zcJson, _json.data);
+                    }
+
+                    //Add Values
+                    if($scope.zcValues){
+                        injectValues($scope.zcValues, _json.data);
+                    }
+
+                    //Add other properties
+                    _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
+                    _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
+                    _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
+                    _json.id = id;
+
+                    //Set the box-model of the container element if the height or width are defined as 100%.
+                    if(_json.width === "100%" && !$element.css('width')){
+                        $element.css('width', '100%');
+                    }
+                    if(_json.height === "100%" && !$element.css('height')){
+                        $element.css('height', '100%');
+                    }
+                    zingchart.render(_json);
+                }
+                
+                $scope.$on('$destroy', function() {
+                    zingchart.exec($scope.id,'destroy');
+                });
             }],
-            link : function($scope, $element, $attrs){
-                var id = $element.attr('id');
-
-                //Defaults
-                var _json = {
-                    data : {
-                        type : 'line',
-                        series : []
-                    },
-                    width : 600,
-                    height: 400
-                };
-
-                //Add render object.
-                if($scope.zcRender){
-                    mergeObject($scope.zcRender, _json);
-                }
-
-                //Add JSON object
-                if($scope.zcJson){
-                    mergeObject($scope.zcJson, _json.data);
-                }
-
-                //Add Values
-                if($scope.zcValues){
-                    if(typeof _json.data.series === 'undefined'){
-                        _json.data.series = [];
-                    }
-                    //Single Series
-                    if(!isMultiArray($scope.zcValues)){
-                        if(_json.data.series[0]){
-                            _json.data.series[0].values = $scope.zcValues;
-                        }
-                        else{
-                            _json.data.series.push({'values' : $scope.zcValues});
-                        }
-                    }
-                    //Multi Series
-                    else{
-                        for(var i = 0; i < $scope.zcValues.length; i++){
-                            if(_json.data.series[i]){
-                                _json.data.series[i].values = $scope.zcValues[i];
-                            }
-                            else{
-                                _json.data.series.push({'values' : $scope.zcValues[i]});
-                            }
-                        }
-                    }
-                }
-
-                //Add other properties
-                _json.data.type = ($attrs.zcType) ? $attrs.zcType : _json.data.type;
-                _json.height = ($attrs.zcHeight) ? $attrs.zcHeight : _json.height;
-                _json.width = ($attrs.zcWidth) ? $attrs.zcWidth : _json.width;
-                _json.id = id;
-
-                //Set the box-model of the container element if the height or width are defined as 100%.
-                if(_json.width === "100%" && !$element.width){
-                    $element.css('width', '100%');
-                }
-                if(_json.height === "100%" && !$element.height){
-                    $element.css('height', '100%');
-                }
-
-                zingchart.render(_json);
+            link : function($scope){
+                $scope.renderChart();
             }
         };
     }]);
+
+	/**
+	* Injects values into each series, and handles multi series cases.
+	* @param the values to inject into the config object
+	* @param the configuration object itself.
+	*/
+	function injectValues(values, config) {
+		if(typeof config.series === 'undefined'){
+			config.series = [];
+		}
+		//Single Series
+		if(!isMultiArray(values)){
+			if(config.series[0]){
+				config.series[0].values = values;
+			}
+			else{
+				config.series.push({'values' : values});
+			}
+		}
+		//Multi Series
+		else{
+			for(var i = 0; i < values.length; i++){
+				if(config.series[i]){
+					config.series[i].values = values[i];
+				}
+				else{
+					config.series.push({'values' : values[i]});
+				}
+			}
+		}
+		return config;
+	}
 
     /**
     *   Helper function to merge an object into another, overwriting properties.
@@ -180,12 +204,7 @@
     *   @returns {boolean} - true if the array is multidimensional, false otherwise
     */
     function isMultiArray(_array){
-        if(typeof _array[0] === "string" || typeof _array[0] === "number"){
-            return false;
-        }
-        else{
-            return true;
-        }
+		return Array.isArray(_array[0]);
     }
 
 })();
