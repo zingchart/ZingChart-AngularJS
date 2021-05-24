@@ -62,6 +62,17 @@
                     }
                 });
 
+                $scope.$watch('zcLicense', function(newValue, oldValue, scope) {
+                    if(initializing.license){
+                        initializing.license = !initializing.license;
+                        return;
+                    }
+
+                    // Destroy the chart and re-render it with changed attributes
+                    zingchart.LICENSE = scope.zcLicense;
+                    scope.zcLicense = newValue;
+                },true);
+
                 $scope.$watch('zcJson', function(){
                     if(initializing.json){
                         initializing.json = !initializing.json;
@@ -110,6 +121,11 @@
                         width : 600,
                         height: 400
                     };
+
+                    //Add render object.
+                    if($scope.zcLicense){
+                        mergeObject($scope.zcLicense, _json);
+                    }
 
                     //Add render object.
                     if($scope.zcRender){
