@@ -15,7 +15,8 @@
                 id : '@',
                 zcValues : '=',
                 zcJson : '=',
-                zcRender : '='
+                zcRender : '=',
+		zcLicense : '='
             },
             controller : ['$scope', '$element', '$attrs', function($scope, $element, $attrs){
                 var id;
