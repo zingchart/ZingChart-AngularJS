@@ -69,8 +69,7 @@
                         return;
                     }
 
-                    // Destroy the chart and re-render it with changed attributes
-                    zingchart.LICENSE = scope.zcLicense;
+                    ZC.LICENSE = scope.zcLicense;
                     scope.zcLicense = newValue;
                 },true);
 
@@ -122,12 +121,7 @@
                         width : 600,
                         height: 400
                     };
-
-                    //Add render object.
-                    if($scope.zcLicense){
-                        mergeObject($scope.zcLicense, _json);
-                    }
-
+			
                     //Add render object.
                     if($scope.zcRender){
                         mergeObject($scope.zcRender, _json);
@@ -156,6 +150,7 @@
                     if(_json.height === "100%" && !$element.css('height')){
                         $element.css('height', '100%');
                     }
+		    ZC.LICENSE = $scope.zcLicense;
                     zingchart.render(_json);
                 }
                 
