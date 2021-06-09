@@ -207,6 +207,22 @@ Note: You can add series values into this object like you normally would while u
 ---
 
 
+### _zc-license [string] ```(optional)```
+
+Sets the license key to remove the watermark from the chart.
+##### Example:
+```html
+//.html
+<zingchart id="chart-1" zc-license="zcLicense"/zingchart>
+```
+```js
+//.js
+app.controller('MainController', function ($scope) {
+  $scope.zcLicense = ['<your license key here>'];
+```
+---
+
+
 ### _zc-render_ [object] ```(optional)```
 ```default : null```
 
